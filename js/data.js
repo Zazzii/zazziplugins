@@ -15,6 +15,62 @@ window.ZZ = {
 
   plugins: [
     {
+      slug: 'clipper',
+      name: 'Clipper',
+      category: 'Dinamica',
+      color: '#FF5A36',
+      price: 29,
+      version: '0.1.0',
+      isNew: true,
+      image: 'assets/plugins/clipper.jpg',
+      checkoutUrl: '#',
+      tagline: 'Più forte, senza che si senta.',
+      short: 'Clipper sovracampionato 16× con soffitto true peak. Quattro manopole e suona pulito.',
+      description:
+        'Clipper parte dal clip di Forge e lo porta fino in fondo: sovracampionamento a fase lineare 16×, una curva con il ginocchio morbido e l\'anti-aliasing, e un soffitto che tiene il true peak anche tra un campione e l\'altro. Sotto il ginocchio il segnale passa identico: il clipper lavora solo sui picchi.',
+      features: [
+        { title: 'Sovracampionamento 16×', text: 'Filtri a fase lineare e anti-aliasing sulla curva: anche spingendo tanto, niente sporco che torna giù nell\'udibile.' },
+        { title: 'Soffitto true peak', text: 'Il picco resta sotto il ceiling anche tra i campioni, misurato a 16×. Pronto per lo streaming.' },
+        { title: 'Delta e Match', text: 'Delta ti fa sentire solo quello che viene tagliato, Match confronta con il bypass allo stesso volume.' },
+      ],
+      controls: [
+        { name: 'Drive', text: 'Quanto spingi il segnale contro il soffitto, fino a +24 dB.' },
+        { name: 'Shape', text: 'Da clip duro a ginocchio morbido, fino a 12 dB sotto il soffitto.' },
+        { name: 'Color', text: 'Rende diverse le due metà dell\'onda: armoniche pari, solo dove taglia.' },
+        { name: 'Ceiling', text: 'Il soffitto in dBTP, da −12 a 0.' },
+        { name: 'Match', text: 'Abbassa l\'uscita quanto alzi il drive, per confronti onesti.' },
+        { name: 'Delta', text: 'Ascolti solo quello che il clipper toglie.' },
+      ],
+    },
+    {
+      slug: 'clipper-hw',
+      name: 'Clipper HW',
+      category: 'Dinamica',
+      color: '#FFB24A',
+      price: 29,
+      version: '0.1.0',
+      isNew: true,
+      wide: true,
+      image: 'assets/plugins/clipper-hw.jpg',
+      checkoutUrl: '#',
+      tagline: 'Lo stesso clipper, in un rack.',
+      short: 'Il motore di Clipper in un\'unità hardware: manopole in alluminio, display ambra e meter a LED.',
+      description:
+        'Clipper HW è Clipper con un\'altra faccia: un\'unità rack con il display della forma d\'onda e della curva, quattro manopole in alluminio nei loro anelli di LED e tasti in gomma. Stesso suono, stessi parametri e stessi preset.',
+      features: [
+        { title: 'Parti in 3D vero', text: 'Manopole in alluminio tornito e tasti in gomma disegnati in 3D, con luci e ombre da studio fotografico.' },
+        { title: 'Display ambra', text: 'La forma d\'onda con in rosso quello che viene tagliato, la curva in dB e lo stato, dietro il vetro.' },
+        { title: 'Stesso motore', text: 'Sovracampionamento 16×, soffitto true peak, Delta e Match: il suono è quello di Clipper.' },
+      ],
+      controls: [
+        { name: 'Drive · Shape · Color · Ceiling', text: 'Le quattro manopole, con l\'anello di LED che segue il valore.' },
+        { name: 'Meter a LED', text: 'Ingresso, uscita in true peak e dB tagliati.' },
+        { name: 'Match · Δ Listen', text: 'Confronto allo stesso volume e ascolto di quello che viene tolto.' },
+        { name: 'Bypass · A/B', text: 'Confronto con l\'originale e tra due impostazioni.' },
+        { name: 'Preset', text: 'Quattordici preset, dal menu sul display o con i tasti.' },
+      ],
+    },
+    {
       slug: 'forge',
       name: 'Forge',
       category: 'Saturazione',
