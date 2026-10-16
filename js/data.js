@@ -4,8 +4,24 @@
   - wide: true fa occupare alla card due colonne (adatto alle interfacce molto larghe)
   - checkoutUrl: incolla qui il link di pagamento (es. Stripe Payment Link). Finché è "#" il
     pulsante mostra solo un avviso.
+  - tune: i link dei pulsanti di VTUNE nella pagina (tutti quelli "Acquista VTUNE" e "Prova 3 giorni").
+  - vstream: il Payment Link di Stripe del pulsante "Acquista" e i file dei pulsanti "Scarica per Mac" e
+    "Scarica per Windows" nella sua pagina (#/vstream). I file hanno un nome senza versione: i link
+    nelle email delle licenze già spedite restano buoni. Una release nuova li sovrascrive.
+  - showTune: false nasconde VTUNE (tutto ciò che in index.html ha data-tune-only) e il sito
+    apre su VSTREAM. Rimetti true per riaverlo.
 */
 window.ZZ = {
+  showTune: false,
+  tune: {
+    checkoutUrl: '#', // link di pagamento di VTUNE (Stripe)
+    trialUrl: '#', // link della prova di 3 giorni (Stripe, con la carta)
+  },
+  vstream: {
+    checkoutUrl: '#', // Payment Link di Stripe (https://buy.stripe.com/...), account "Vault Plugins"
+    mac: 'downloads/VSTREAM-mac.zip', // AU + VST3, Apple Silicon e Intel
+    windows: 'downloads/VSTREAM-windows.zip', // VST3, 64 bit
+  },
   bundle: {
     name: 'All Access',
     monthly: 12.99,
@@ -263,28 +279,32 @@ window.ZZ = {
 
   faq: [
     {
-      q: 'Che differenza c\'è tra comprare un plugin e All Access?',
-      a: 'Il plugin singolo lo paghi una volta e resta tuo per sempre, con tutti gli aggiornamenti della stessa versione. All Access è un abbonamento: hai tutti i plugin del catalogo, compresi quelli che usciranno, finché resti abbonato.',
+      q: 'Quanto costa VSTREAM?',
+      a: '€2,99, una volta sola, IVA inclusa. La licenza è tua per sempre, con gli aggiornamenti gratuiti della versione. Nessun abbonamento.',
     },
     {
-      q: 'Su quanti computer posso installarli?',
-      a: 'Ogni licenza vale per due computer insieme. Puoi spostare l\'attivazione su un altro computer quando vuoi dal tuo account.',
+      q: 'Come ricevo la licenza?',
+      a: 'Subito dopo il pagamento ti arriva un\'email con il codice, il file VSTREAM.lic e i link per scaricare il plugin. Apri VSTREAM, clicca Licence in basso a destra e trascina il file o incolla il codice.',
     },
     {
-      q: 'Funzionano sulla mia DAW?',
-      a: 'Sì, se la tua DAW carica plugin VST3 o AU: Logic Pro, Ableton Live, FL Studio, Cubase, Studio One, Reaper, Bitwig e le altre. Su Mac girano in nativo su Apple Silicon.',
+      q: 'Su quanti computer posso usarlo?',
+      a: 'Su tre computer alla volta, Mac e Windows insieme. Per passare a un altro computer disattivalo su uno di quelli attivi, dal pulsante nel plugin.',
     },
     {
-      q: 'Posso disdire All Access quando voglio?',
-      a: 'Sì, in qualsiasi momento dal tuo account. L\'accesso resta attivo fino alla fine del periodo già pagato.',
+      q: 'Funziona sulla mia DAW?',
+      a: 'Sì, se la tua DAW carica plugin VST3 o AU: Logic Pro, Ableton Live, FL Studio, Cubase, Studio One, Reaper, Bitwig e le altre. Su Mac gira in nativo su Apple Silicon. Pro Tools no: VSTREAM non è AAX.',
     },
     {
-      q: 'Se disdico All Access, perdo i progetti?',
-      a: 'I progetti restano tuoi. Senza abbonamento i plugin si aprono in modalità bypass finché non li riattivi o non compri la licenza singola.',
+      q: 'Serve un\'app sul telefono?',
+      a: 'No. Inquadri il QR con la fotocamera e il telefono apre una pagina web. Telefono e computer devono stare sulla stessa rete Wi-Fi.',
     },
     {
       q: 'C\'è una prova gratuita?',
-      a: 'Ogni plugin ha una demo completa di 14 giorni. Scaricala dalla pagina del plugin, senza carta di credito.',
+      a: 'No, VSTREAM non ha una prova gratuita. In compenso hai 14 giorni per ripensarci: ti rimborsiamo tutto.',
+    },
+    {
+      q: 'Posso avere un rimborso?',
+      a: 'Sì, entro 14 giorni dall\'acquisto, anche se l\'hai già attivata. Rispondi all\'email della licenza: ti rimborsiamo tutto e la licenza si disattiva.',
     },
   ],
 };

@@ -1,5 +1,23 @@
 (() => {
   const { plugins, bundle, faq } = window.ZZ;
+  // VTUNE spento in data.js: le sue parti escono dalla pagina e la home diventa VSTREAM
+  const showTune = window.ZZ.showTune !== false;
+  if (!showTune) document.querySelectorAll('[data-tune-only]').forEach((el) => el.remove());
+  // i pulsanti di VTUNE (Acquista, Prova 3 giorni) prendono i link scritti una volta in data.js
+  const tuneLinks = window.ZZ.tune || {};
+  document.querySelectorAll("[data-tune]").forEach((el) => {
+    const url = tuneLinks[el.dataset.tune];
+    if (url && url !== "#") el.setAttribute("href", url);
+  });
+  // e quelli di VSTREAM (data-vstream="checkoutUrl": il pagamento; "mac" o "windows": il file di quel sistema)
+  const vstreamLinks = window.ZZ.vstream || {};
+  document.querySelectorAll("[data-vstream]").forEach((el) => {
+    const url = vstreamLinks[el.dataset.vstream];
+    if (url && url !== "#") {
+      el.setAttribute("href", url);
+      if (el.dataset.vstream !== "checkoutUrl") el.setAttribute("download", "");
+    }
+  });
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const root = document.documentElement;
@@ -14,6 +32,15 @@
 
   const homeEl = $('#home');
   const detailEl = $('#detail');
+  const vstreamEl = $('#vstream');
+  const legalEl = $('#legal');
+  const thanksEl = $('#thanks');
+  // le pagine senza logica propria: si mostrano al posto della home
+  const pages = {
+    legal: { el: legalEl, prefix: 't-', title: { it: 'Termini e condizioni', en: 'Terms and conditions' } },
+    thanks: { el: thanksEl, prefix: '', title: { it: 'Grazie', en: 'Thank you' } },
+  };
+  const hidePages = () => Object.values(pages).forEach((p) => { p.el.hidden = true; });
 
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
@@ -21,6 +48,26 @@
     lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
+  }
+
+  // La rotella sopra il plugin della home finisce nell'iframe e lì si ferma (le manopole la
+  // usano). Scorrere in verticale fa scendere la pagina; con Cmd/Ctrl o in orizzontale resta al plugin.
+  const wheelFrame = $('.tune-frame iframe');
+  const hookFrameWheel = () => {
+    try {
+      wheelFrame.contentWindow.addEventListener('wheel', (e) => {
+        if (e.ctrlKey || e.metaKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        // stesso evento alla pagina: Lenis lo scorre come la rotella fuori dal plugin
+        if (lenis) window.dispatchEvent(new WheelEvent('wheel', { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, cancelable: true }));
+        else window.scrollBy(0, e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY);
+      }, { capture: true, passive: false });
+    } catch (err) { /* altra origine */ }
+  };
+  if (wheelFrame) {
+    wheelFrame.addEventListener('load', hookFrameWheel);
+    if (wheelFrame.contentDocument?.readyState === 'complete') hookFrameWheel();
   }
   const NAV_OFFSET = -110;
   // Le sezioni hanno molto padding sopra: si scorre fino al titolo
@@ -96,14 +143,6 @@
   $('#thumbs').innerHTML = plugins.map((p) => `<span style="--c:${p.color}" title="${p.name}"></span>`).join('');
   $('#year').textContent = new Date().getFullYear();
 
-  const fresh = plugins.find((p) => p.isNew);
-  if (fresh) {
-    $('#heroNew').href = `#/p/${fresh.slug}`;
-    $('#heroNew .chip-text').textContent = `${fresh.name} è uscito`;
-  } else {
-    $('#heroNew').remove();
-  }
-
   $('#faqList').innerHTML = faq.map((f, i) => `
     <details data-reveal style="--d:${Math.min(i, 3)}">
       <summary>${f.q}<span class="plus" aria-hidden="true"></span></summary>
@@ -120,6 +159,15 @@
   }).join('');
 
   // Titolo hero: parole che salgono
+  /* Coppie di lettere a spaziatura corretta nei titoli grandi (Geist 600, tracking -0.03em, senza
+     crenatura): misurate sul vuoto vero tra le lettere, V-T si toccavano quasi, T-U, Z-a e a-z erano
+     a metà dello spazio delle altre, U-N e N-E al doppio. In em, dopo la prima lettera della coppia */
+  const KERN = { VT: 0.072, TU: 0.04, Za: 0.038, az: 0.035, UN: -0.036, NE: -0.046 };
+  const esc = (c) => (c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c);
+  const kernWord = (w) => [...w].map((c, i) => {
+    const k = KERN[c + (w[i + 1] || '')];
+    return k ? `<span style="margin-right:${k}em">${esc(c)}</span>` : esc(c);
+  }).join('');
   $$('[data-split]').forEach((el) => {
     let i = 0;
     const wrap = (node) => {
@@ -132,7 +180,7 @@
             const outer = document.createElement('span');
             outer.className = 'word';
             const inner = document.createElement('span');
-            inner.textContent = w;
+            inner.innerHTML = kernWord(w);
             inner.style.setProperty('--i', i++);
             outer.append(inner);
             frag.append(outer);
@@ -228,11 +276,11 @@
     const others = [1, 2, 3].map((k) => plugins[(idx + k) % plugins.length]).filter((x) => x !== p);
     const specs = {
       Formati: 'VST3 · AU',
-      Sistema: 'macOS',
+      Sistema: 'macOS · Windows',
       'Apple Silicon': 'Nativo',
       Categoria: p.category,
       Versione: p.version,
-      Licenza: 'Perpetua · 2 computer',
+      Licenza: 'Perpetua · 3 computer',
       ...p.specs,
     };
     detailEl.style.setProperty('--c', p.color);
@@ -263,7 +311,7 @@
                 <span>Oppure incluso in <b>${bundle.name}</b>, con tutti gli altri plugin, da ${money(yearlyMonth)}/mese</span>${arrow}
               </a>
             </div>
-            <ul class="trust d-in" style="--d:6"><li>VST3 · AU</li><li>macOS · Apple Silicon</li><li>Demo 14 giorni</li></ul>
+            <ul class="trust d-in" style="--d:6"><li>VST3 · AU</li><li>macOS · Windows</li><li>Demo 3 giorni</li></ul>
           </div>
         </section>
 
@@ -350,6 +398,10 @@
   function parse() {
     const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
     if (parts[0] === 'p' && bySlug[parts[1]]) return { view: 'detail', slug: parts[1] };
+    if (parts[0] === 'vstream') return { view: 'vstream', section: parts[1] || null };
+    if (parts[0] === 'termini' || parts[0] === 'terms') return { view: 'legal', section: parts[1] || null };
+    if (parts[0] === 'grazie' || parts[0] === 'thanks') return { view: 'thanks', section: null };
+    if (!showTune && parts[0] !== 'faq') return { view: 'vstream', section: null };
     return { view: 'home', section: parts[0] || null };
   }
 
@@ -379,12 +431,59 @@
       const go = () => {
         renderDetail(p);
         homeEl.hidden = true;
+        vstreamEl.hidden = true;
+        hidePages();
         detailEl.hidden = false;
-        document.title = `${p.name} · Zazzi Plugins`;
+        document.title = `${p.name} · Vault Plugins`;
         scrollTo(0, true);
       };
       if (first) { go(); afterRender(detailEl); return; }
       withVT('route', go).then(() => afterRender(detailEl));
+      return;
+    }
+
+    // La pagina di VSTREAM: già scritta in index.html, si mostra al posto della home
+    if (next.view === 'vstream') {
+      const target = () => sectionTarget(next.section && 'vs-' + next.section) || 0;
+      if (prev && prev.view === 'vstream') { scrollTo(target()); return; }
+      if (prev && prev.view === 'home') homeY = scrollY;
+      markMorph(homeEl, null);
+      const go = () => {
+        detailEl._barIO?.disconnect();
+        homeEl.hidden = true;
+        detailEl.hidden = true;
+        hidePages();
+        detailEl.innerHTML = '';
+        vstreamEl.hidden = false;
+        document.title = 'VSTREAM · Vault Plugins';
+        scrollTo(target(), true);
+      };
+      if (first) { go(); afterRender(vstreamEl); return; }
+      withVT('route', go).then(() => afterRender(vstreamEl));
+      return;
+    }
+
+    // Termini e condizioni (in italiano e in inglese, il CSS mostra la lingua del sito) e la pagina
+    // dopo il pagamento: già scritte in index.html
+    const page = pages[next.view];
+    if (page) {
+      const target = () => sectionTarget(next.section && page.prefix + next.section) || 0;
+      if (prev && prev.view === next.view) { scrollTo(target()); return; }
+      if (prev && prev.view === 'home') homeY = scrollY;
+      markMorph(homeEl, null);
+      const go = () => {
+        detailEl._barIO?.disconnect();
+        homeEl.hidden = true;
+        detailEl.hidden = true;
+        vstreamEl.hidden = true;
+        detailEl.innerHTML = '';
+        hidePages();
+        page.el.hidden = false;
+        document.title = page.title[root.lang === 'en' ? 'en' : 'it'] + ' · Vault Plugins';
+        scrollTo(target(), true);
+      };
+      if (first) { go(); afterRender(page.el); return; }
+      withVT('route', go).then(() => afterRender(page.el));
       return;
     }
 
@@ -398,9 +497,11 @@
     const go = () => {
       detailEl._barIO?.disconnect();
       detailEl.hidden = true;
+      vstreamEl.hidden = true;
+      hidePages();
       homeEl.hidden = false;
       detailEl.innerHTML = '';
-      document.title = 'Zazzi Plugins';
+      document.title = 'Vault Plugins';
       if (restore) scrollTo(homeY, true);
       else if (section) scrollTo(section, true);
       else scrollTo(0, true);
@@ -433,6 +534,9 @@
   });
   addEventListener('hashchange', () => { route(); viaClick = false; });
 
+  // i termini si stampano o si salvano in PDF dal pulsante in cima alla pagina
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-print]')) print(); });
+
   /* ---------- Acquisto (design: nessun pagamento collegato) ---------- */
   const toastEl = $('#toast');
   let toastTimer;
@@ -448,7 +552,7 @@
     const href = b.getAttribute('href');
     if (!href || href === '#') {
       e.preventDefault();
-      toast(`${b.dataset.label}: non ancora collegato`);
+      toast(`${b.dataset.label}: ${document.documentElement.lang === 'en' ? 'not connected yet' : 'non ancora collegato'}`);
     }
   });
 
@@ -492,39 +596,57 @@
     });
   }
 
-  /* ---------- Hero 3D: mouse + scroll ---------- */
-  const stage = $('.stage-inner');
-  const hero = $('.hero');
-  let heroOn = true;
-  let heroH = hero.offsetHeight;
-  addEventListener('resize', () => { heroH = hero.offsetHeight; });
-  let mx = 0, my = 0, cx = 0, cy = 0, sp = 0;
-  new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; }).observe(hero);
-  if (finePointer && !reduce) {
-    addEventListener('pointermove', (e) => {
-      mx = e.clientX / innerWidth - 0.5;
-      my = e.clientY / innerHeight - 0.5;
-    }, { passive: true });
-  }
-  function tick() {
-    if (heroOn && !homeEl.hidden && !reduce) {
-      const p = Math.min(1, Math.max(0, scrollY / (heroH * 0.75)));
-      cx += (mx - cx) * 0.06;
-      cy += (my - cy) * 0.06;
-      sp += (p - sp) * 0.14;
-      stage.style.transform =
-        `rotateX(${(16 - sp * 16 - cy * 6).toFixed(3)}deg) rotateY(${(cx * 9).toFixed(3)}deg) ` +
-        `translate3d(0, ${(-sp * 30).toFixed(2)}px, 0) scale(${(1 + sp * 0.06).toFixed(4)})`;
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-
   /* ---------- Nav ---------- */
   const nav = $('#nav');
   const onScroll = () => nav.classList.toggle('scrolled', scrollY > 24);
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ---------- Il plugin dell'hero: fermo mentre la pagina scorre o quando non si vede ---------- */
+  const tuneIframe = $('.tune-frame iframe');
+  if (tuneIframe) {
+    let scrolling = false, inView = true, stopT = 0, sent = null;
+    const hold = () => {
+      const h = scrolling || !inView;
+      if (h !== sent) { sent = h; tuneIframe.contentWindow?.postMessage({ tunePause: h }, location.origin === 'null' ? '*' : location.origin); }
+    };
+    addEventListener('scroll', () => {
+      scrolling = true; hold();
+      clearTimeout(stopT);
+      stopT = setTimeout(() => { scrolling = false; hold(); }, 140);
+    }, { passive: true });
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; hold(); }).observe(tuneIframe);
+    tuneIframe.addEventListener('load', () => { sent = null; hold(); });
+  }
+
+  /* ---------- Plugin e telefono di VSTREAM: fermi quando non si vedono ---------- */
+  $$('.vs-plugin iframe, .vs-shot iframe').forEach((frame) => {
+    let seen = false;
+    const tell = () => frame.contentWindow?.postMessage({ streamPause: !seen || document.hidden }, location.origin === 'null' ? '*' : location.origin);
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; tell(); }).observe(frame);
+    document.addEventListener('visibilitychange', tell);
+    frame.addEventListener('load', tell);
+  });
+  // il telefono è disegnato a 390 px di larghezza: si scala alla sua cornice
+  const phoneShot = $('.vs-shot');
+  if (phoneShot) new ResizeObserver(() => phoneShot.style.setProperty('--k', phoneShot.clientWidth / 390)).observe(phoneShot);
+
+  /* ---------- Barra di VTUNE: compare quando il plugin dell'hero si vede tutto (e resta oltre) ---------- */
+  const tuneBar = $('.tune-bar'), tuneFrame = $('.tune-frame');
+  if (tuneBar && tuneFrame) {
+    let barTick = 0;
+    const showBar = () => {
+      barTick = 0;
+      const show = tuneFrame.getBoundingClientRect().bottom <= innerHeight + 1;
+      tuneBar.classList.toggle('show', show);
+      tuneBar.setAttribute('aria-hidden', String(!show));
+      $$('a', tuneBar).forEach((a) => { a.tabIndex = show ? 0 : -1; });
+    };
+    const queueBar = () => { if (!barTick) barTick = requestAnimationFrame(showBar); };
+    addEventListener('scroll', queueBar, { passive: true });
+    addEventListener('resize', queueBar);
+    showBar();
+  }
 
   /* ---------- Avvio ---------- */
   const relayout = () => { movePill(filters); movePill(period); };
@@ -539,7 +661,8 @@
   if (document.fonts?.status === 'loaded') start();
   else Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 600))]).then(start);
 
-  if (current.view === 'home' && current.section) {
-    setTimeout(() => scrollTo(sectionTarget(current.section) || 0, true), 50);
+  if (current.view !== 'detail' && current.section) {
+    const id = (current.view === 'vstream' ? 'vs-' : pages[current.view]?.prefix ?? '') + current.section;
+    setTimeout(() => scrollTo(sectionTarget(id) || 0, true), 50);
   }
 })();

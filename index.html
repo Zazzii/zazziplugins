@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zazzi Plugins</title>
-  <meta name="description" content="Plugin di mix e mastering. Comprali uno alla volta o prendili tutti con All Access.">
+  <title>Vault Plugins</title>
+  <meta name="description" content="VTUNE: correzione dell'intonazione della voce, dal ritocco naturale all'hard tune, con editor delle note.">
   <meta name="theme-color" content="#09090c">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,51 +17,286 @@
   <div class="grain" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
-    <a href="#/" class="brand" aria-label="Zazzi Plugins, home">
-      <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-      <span class="brand-name">zazzi<span>plugins</span></span>
+    <a href="#/" class="brand" aria-label="Vault Plugins, home">
+      <span class="brand-name">vault<span>plugins</span></span>
     </a>
     <nav class="nav-links" aria-label="Sezioni">
-      <a href="#/plugins">Plugin</a>
-      <a href="#/all-access">All Access</a>
+      <a data-tune-only href="#/tune">VTUNE</a>
+      <a href="#/vstream">VSTREAM</a>
       <a href="#/faq">FAQ</a>
     </nav>
-    <a class="btn btn-light btn-sm" href="#/all-access">Abbonati</a>
+    <div class="nav-end">
+      <button type="button" class="lang" id="langToggle" aria-label="Switch to English">EN</button>
+    </div>
   </header>
 
   <!-- HOME -->
   <main id="home">
-    <section class="hero" id="top">
+    <section data-tune-only class="hero" id="top">
       <div class="hero-glow" aria-hidden="true"></div>
-      <a class="chip-new" id="heroNew" href="#/p/forge">
-        <span class="chip-tag">Nuovo</span>
-        <span class="chip-text">Forge è uscito</span>
+      <a class="chip-new" href="#/tech">
+        <span class="chip-tag">New</span>
+        <span class="chip-text">Voice Print Analysis, Predictive Pitch e Live Mode a 0,25 ms</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <h1 class="display" data-split>Suono finito, <em class="grad">zero fatica.</em></h1>
-      <p class="hero-sub fade-up" style="--d:6">Plugin di mix e mastering pensati da chi produce. Compra solo quello che ti serve, oppure prendili tutti con All Access.</p>
-      <div class="hero-cta fade-up" style="--d:7">
-        <a class="btn btn-light" href="#/plugins" data-magnetic>Esplora i plugin</a>
-        <a class="btn btn-ghost" href="#/all-access" data-magnetic><span>All Access · <span data-bundle-from></span>/mese</span></a>
-      </div>
-
-      <div class="stage" aria-hidden="true">
-        <div class="stage-inner">
-          <div class="shot l"><img src="assets/plugins/syne.jpg" alt=""></div>
-          <div class="shot r"><img src="assets/plugins/chords.jpg" alt=""></div>
-          <div class="shot c"><img src="assets/plugins/forge.jpg" alt="" fetchpriority="high"></div>
+      <h1 class="display" data-split>Zazzi presenta <em class="grad">VTUNE.</em></h1>
+      <p class="hero-sub fade-up" style="--d:5">La prossima evoluzione dell'intonazione vocale. Scopri cosa sa fare VTUNE.</p>
+      <div class="tune-frame fade-up" style="--d:6">
+        <iframe src="embed/tune.html" title="VTUNE, interfaccia del plugin con una voce simulata"></iframe>
+        <div class="hotspots" id="hotspots">
+          <div class="hs" data-x="385" data-y="12">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs1"><span class="sr">Preset</span></button>
+            <div class="hs-pop" id="hs1" role="dialog" aria-labelledby="hs1t" hidden><strong id="hs1t">Preset</strong><p>Punti di partenza pronti, da Natural a Hard fino a Ultra. Ognuno ha la sua velocità di correzione: accendi ? e passaci sopra per leggere cosa fa.</p></div>
+          </div>
+          <div class="hs" data-x="710" data-y="12">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs2"><span class="sr">Low Latency</span></button>
+            <div class="hs-pop" id="hs2" role="dialog" aria-labelledby="hs2t" hidden><strong id="hs2t">Low Latency</strong><p>Per registrare: la voce torna con circa 1 ms di ritardo. Per il mix spegnilo: tornano Natural Riffs e Crack Repair, che hanno bisogno di ascoltare in anticipo.</p></div>
+          </div>
+          <div class="hs" data-x="264" data-y="68">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs3"><span class="sr">Tonalità e scala</span></button>
+            <div class="hs-pop" id="hs3" role="dialog" aria-labelledby="hs3t" hidden><strong id="hs3t">Tonalità e scala</strong><p>Scegli tonalità e scala: VTUNE porta ogni nota sulla nota della scala più vicina. Sul piano clicchi una nota per toglierla o rimetterla.</p></div>
+          </div>
+          <div class="hs" data-x="12" data-y="326">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs4"><span class="sr">Voice e Follow</span></button>
+            <div class="hs-pop" id="hs4" role="dialog" aria-labelledby="hs4t" hidden><strong id="hs4t">Voice e Follow</strong><p>Voice Auto capisce da solo se canta un basso, un tenore, un contralto o un soprano e cerca solo lì: meno errori di ottava. Follow fa prendere a un coro le note della voce principale.</p></div>
+          </div>
+          <div class="hs" data-x="566" data-y="392">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs5"><span class="sr">L'anello</span></button>
+            <div class="hs-pop" id="hs5" role="dialog" aria-labelledby="hs5t" hidden><strong id="hs5t">L'anello</strong><p>Le dodici note in cerchio: la scia è la voce, la perla è la nota su cui VTUNE la porta. Al centro la nota, lo scarto in centesimi e la frequenza.</p></div>
+          </div>
+          <div class="hs" data-x="988" data-y="68">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs6"><span class="sr">Retune Speed</span></button>
+            <div class="hs-pop" id="hs6" role="dialog" aria-labelledby="hs6t" hidden><strong id="hs6t">Retune Speed</strong><p>Quanto in fretta la voce arriva sulla nota: lento resta umano, a zero è hard tune. Oltre lo zero c'è ULTRA: la nota cambia prima della voce, il suono del retune negativo.</p></div>
+          </div>
+          <div class="hs" data-x="736" data-y="335">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs7"><span class="sr">Riffs, Repair, Formant</span></button>
+            <div class="hs-pop" id="hs7" role="dialog" aria-labelledby="hs7t" hidden><strong id="hs7t">Riffs, Repair, Formant</strong><p>Riffs lascia abbellimenti e run come li hai cantati. Repair ripara le stecche sulle note tenute. Formant tiene il timbro al suo posto anche spostando molto la voce.</p></div>
+          </div>
+          <div class="hs" data-x="988" data-y="456">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hs8"><span class="sr">Pitch e Graph</span></button>
+            <div class="hs-pop" id="hs8" role="dialog" aria-labelledby="hs8t" hidden><strong id="hs8t">Pitch e Graph</strong><p>Grigio: la voce come l'hai cantata. Rosa: come esce corretta. Passa a GRAPH per vedere le note e modificarle una per una.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="90" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg1"><span class="sr">Auto</span></button>
+            <div class="hs-pop" id="hsg1" role="dialog" aria-labelledby="hsg1t" hidden><strong id="hsg1t">Auto</strong><p>Torna alla correzione automatica e alla vista principale con l'anello.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="205" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg2"><span class="sr">REC</span></button>
+            <div class="hs-pop" id="hsg2" role="dialog" aria-labelledby="hsg2t" hidden><strong id="hsg2t">REC</strong><p>Accendi REC e registra, o premi play: VTUNE ascolta la voce e disegna le note. Spegnilo quando hai finito: le note restano.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="330" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg3"><span class="sr">Strumenti</span></button>
+            <div class="hs-pop" id="hsg3" role="dialog" aria-labelledby="hsg3t" hidden><strong id="hsg3t">Strumenti</strong><p>Seleziona e sposta, vibrato, drift, attacco, volume, taglia e unisci: uno strumento per ogni cosa che vuoi cambiare in una nota.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="485" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg4"><span class="sr">Scale</span></button>
+            <div class="hs-pop" id="hsg4" role="dialog" aria-labelledby="hsg4t" hidden><strong id="hsg4t">Scale</strong><p>Le note che sposti atterrano solo sulle note della scala. Con Alt le muovi libere.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="585" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg5"><span class="sr">Drift</span></button>
+            <div class="hs-pop" id="hsg5" role="dialog" aria-labelledby="hsg5t" hidden><strong id="hsg5t">Drift</strong><p>Raddrizza il lento ondeggiare delle note prima che VTUNE le intoni.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="738" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg6"><span class="sr">Reset, Re-listen, Clear</span></button>
+            <div class="hs-pop" id="hsg6" role="dialog" aria-labelledby="hsg6t" hidden><strong id="hsg6t">Reset, Re-listen, Clear</strong><p>Reset riporta le note com'erano. Re-listen fa riascoltare un tratto come nuovo. Clear dimentica la voce sentita finora.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="868" data-y="70">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg7"><span class="sr">Follow</span></button>
+            <div class="hs-pop" id="hsg7" role="dialog" aria-labelledby="hsg7t" hidden><strong id="hsg7t">Follow</strong><p>Tiene la testina sempre in vista mentre la traccia suona.</p></div>
+          </div>
+          <div class="hs" data-view="graph" data-x="500" data-y="360">
+            <button type="button" class="hs-dot" aria-expanded="false" aria-controls="hsg8"><span class="sr">Le note</span></button>
+            <div class="hs-pop" id="hsg8" role="dialog" aria-labelledby="hsg8t" hidden><strong id="hsg8t">Le note</strong><p>Clicca una nota per sentirla, trascinala su o giù per spostarla. Doppio clic la rimette sulla scala. Quelle che non tocchi suonano come le hai registrate.</p></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
+    <div data-tune-only class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>VST3</span><span>AU</span><span>macOS</span><span>Apple Silicon nativo</span><span>Licenza a vita</span><span>2 attivazioni</span><span>Demo 14 giorni</span><span>Preset inclusi</span>
-        <span>VST3</span><span>AU</span><span>macOS</span><span>Apple Silicon nativo</span><span>Licenza a vita</span><span>2 attivazioni</span><span>Demo 14 giorni</span><span>Preset inclusi</span>
+        <span>VST3</span><span>AU</span><span>macOS</span><span>Windows</span><span>Apple Silicon nativo</span><span>Licenza a vita</span><span>3 attivazioni</span><span>Demo 3 giorni</span><span>Preset inclusi</span>
+        <span>VST3</span><span>AU</span><span>macOS</span><span>Windows</span><span>Apple Silicon nativo</span><span>Licenza a vita</span><span>3 attivazioni</span><span>Demo 3 giorni</span><span>Preset inclusi</span>
       </div>
     </div>
 
-    <section class="section" id="plugins">
+    <!-- Le tecnologie di VTUNE: subito dopo l'apertura -->
+    <section data-tune-only class="section tech" id="tech" style="--c:#ff4fd8">
+      <div class="section-head center" data-reveal>
+        <p class="kicker">Le tecnologie di VTUNE</p>
+        <h2 class="h2">Ascolta. Prevede.<br><span class="grad">Poi corregge.</span></h2>
+        <p class="lead">Non il solito autotune: VTUNE prima capisce come canti, poi decide come intonarti.</p>
+      </div>
+
+      <div class="tech-list">
+        <article class="tech-row" data-reveal>
+          <div class="tech-media"><img src="assets/tune/07-assist.jpg" alt="ASSIST di VTUNE: cosa ha sentito nella voce e perché ha scelto ogni impostazione" width="960" height="600" loading="lazy" decoding="async"></div>
+          <div class="tech-copy">
+            <p class="tech-name">Voice Print Analysis</p>
+            <h3>Ti ascolta prima di toccarti.</h3>
+            <p>Premi ASSIST e canta per 20 secondi. VTUNE segue la tua intonazione 200 volte al secondo, misura come canti e simula la correzione sulla tua voce prima di applicarla. Poi imposta tutto per il suono che scegli, e sotto ogni valore ti dice perché.</p>
+            <div class="tech-stat"><b>11</b><span>caratteristiche della tua voce, misurate in 20 secondi</span></div>
+          </div>
+        </article>
+        <article class="tech-row flip" data-reveal>
+          <div class="tech-media"><img src="assets/tune/08-ultra.jpg" alt="Retune Speed di VTUNE in ULTRA, 14 ms di anticipo" width="960" height="600" loading="lazy" decoding="async"></div>
+          <div class="tech-copy">
+            <p class="tech-name">Predictive Pitch</p>
+            <h3>Non insegue la nota. Ci arriva prima.</h3>
+            <p>Gli autotune in tempo reale reagiscono quando la nota è già iniziata. ULTRA guarda avanti nella traccia e porta la correzione sulla nota nuova prima della voce: cambi di nota netti, senza l'effetto in ritardo.</p>
+            <div class="tech-stat"><b>20 ms</b><span>di anticipo sul cambio di nota</span></div>
+          </div>
+        </article>
+        <article class="tech-row" data-reveal>
+          <div class="tech-media"><img src="assets/tune/10-graph.jpg" alt="GRAPH di VTUNE: le note, la voce cantata e come uscirà" width="960" height="600" loading="lazy" decoding="async"></div>
+          <div class="tech-copy">
+            <p class="tech-name">Hybrid Tuning</p>
+            <h3>Automatico e nota per nota. Insieme.</h3>
+            <p>Le note che non tocchi le intona VTUNE da solo. Quelle da perfezionare le apri come in un editor professionale: altezza, vibrato, deriva, transizione, volume, tempo. Il grafico ti mostra in anteprima la voce come uscirà.</p>
+            <div class="tech-stat"><b>8</b><span>strumenti di editing, nello stesso plugin</span></div>
+          </div>
+        </article>
+        <article class="tech-row flip" data-reveal>
+          <div class="tech-media"><img src="assets/tune/09-live.jpg" alt="Menu Latency di VTUNE: Normal, Low latency 1,4 ms, Live 0,25 ms" width="960" height="600" loading="lazy" decoding="async"></div>
+          <div class="tech-copy">
+            <p class="tech-name">Live Mode</p>
+            <h3>Pronto per il palco.</h3>
+            <p>Una modalità a latenza minima per cantare con la correzione in cuffia o dal vivo, senza sentire nessun ritardo. Per registrare in studio c'è Low Latency, a 1,4 ms.</p>
+            <div class="tech-stat"><b>0,25 ms</b><span>di latenza in Live</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="tech-more">
+        <article class="tech-mini" data-reveal style="--d:0">
+          <p class="tech-name">Riff Detection</p>
+          <h3>I tuoi riff restano tuoi.</h3>
+          <p>Abbellimenti, note di passaggio e run passano come li hai cantati, intonati con la nota che li circonda. Niente scalini robotici.</p>
+        </article>
+        <article class="tech-mini" data-reveal style="--d:1">
+          <p class="tech-name">Zero-Latency Formant</p>
+          <h3>Corretta, non trasformata.</h3>
+          <p>Il timbro resta il tuo anche con le correzioni più grandi: niente voce da cartone animato, e nessuna latenza in più.</p>
+        </article>
+        <article class="tech-mini" data-reveal style="--d:2">
+          <p class="tech-name">Crack Repair</p>
+          <h3>Le stecche spariscono.</h3>
+          <p>Dove la voce si incrina su una nota tenuta, VTUNE suona al suo posto i cicli sani appena prima.</p>
+        </article>
+      </div>
+
+      <div class="tech-cta" data-reveal>
+        <a class="btn btn-gold" href="#" data-buy data-tune="trialUrl" data-label="Prova di VTUNE">Prova 3 giorni gratis</a>
+        <a class="btn btn-glass hot" href="#" data-buy data-tune="checkoutUrl" data-label="Checkout di VTUNE">Acquista VTUNE · €39</a>
+      </div>
+    </section>
+
+    <section data-tune-only class="section" id="tune" style="--c:#ff4fd8">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="kicker">VTUNE · correzione dell'intonazione</p>
+          <h2 class="h2">Intonata.<br><span class="muted-h">E ancora tua.</span></h2>
+        </div>
+        <p class="lead">VTUNE corregge la voce mentre canti, dal ritocco che non si sente all'hard tune. Poi accendi REC e modifichi le note una per una, come in Melodyne.</p>
+      </div>
+
+      <div class="compare" data-reveal>
+        <table>
+          <thead><tr><th></th><th class="me">VTUNE</th><th>Waves Tune Real-Time</th><th>AutoTune Advanced</th><th>Slate Digital MetaTune</th></tr></thead>
+          <tbody>
+            <tr><th>Prezzo</th><td class="me">€39</td><td>$39,99</td><td>da $437</td><td>$199</td></tr>
+            <tr><th>Correzione in tempo reale</th><td class="me">Sì</td><td>Sì</td><td>Sì</td><td>Sì</td></tr>
+            <tr><th>Modalità a bassa latenza</th><td class="me">Sì, 0,25 ms (Live)</td><td>Sì</td><td>Sì, sotto 1 ms (Live)</td><td>Sì</td></tr>
+            <tr><th>Editor delle note</th><td class="me">Sì, nello stesso plugin</td><td>No, è in Waves Tune, venduto a parte</td><td>No, è in Auto-Tune Pro 11, venduto a parte</td><td>No, per scelta: niente editor grafico</td></tr>
+            <tr><th>Correzione delle formanti</th><td class="me">Sì</td><td>Sì</td><td>Sì (Formant Designer)</td><td>Sì</td></tr>
+            <tr><th>Retune negativo</th><td class="me">Sì (ULTRA · Pitch)</td><td>No, minimo 0,1 ms</td><td>No, minimo 0 ms</td><td>Sì (Speed negativa)</td></tr>
+            <tr><th>Riff e abbellimenti lasciati come cantati</th><td class="me">Sì (Natural Riffs)</td><td>In parte (Note Transition)</td><td>In parte (Flex Tune)</td><td>In parte (Note Stabilizer, solo in mix)</td></tr>
+            <tr><th>Riparazione delle note incrinate</th><td class="me">Sì (Crack Repair)</td><td>No</td><td>No</td><td>No</td></tr>
+            <tr><th>Cori che seguono la voce principale</th><td class="me">Sì (Follow Lead)</td><td>In parte: segue una melodia via MIDI</td><td>In parte (AutoKey 2: stessa tonalità su tutte le istanze)</td><td>In parte (Groups: stesse impostazioni su più tracce)</td></tr>
+            <tr><th>Formati</th><td class="me">AU · VST3</td><td>AU · VST · VST3 · AAX</td><td>AU · VST3 · AAX</td><td>AU · VST · VST3 · AAX</td></tr>
+          </tbody>
+        </table>
+        <p class="compare-note">Le funzioni degli altri plugin sono quelle descritte nei manuali, nelle pagine dei produttori e nelle recensioni a ottobre 2026: "No" vuol dire che lì non risultano, "In parte" che c'è una funzione vicina ma diversa. I prezzi sono quelli della licenza perpetua presso i rivenditori. Waves Tune è un marchio di Waves Audio Ltd.; Auto-Tune è un marchio di Antares Audio Technologies; MetaTune è un marchio di Slate Digital. Zazzi non è affiliato a nessuno di loro.</p>
+      </div>
+
+      <div class="features">
+        <div class="feat" data-reveal style="--d:0">
+          <img class="feat-img" src="assets/tune/01-preset.jpg" alt="Menu dei preset di VTUNE, da Natural a Hard" width="960" height="600" loading="lazy" decoding="async">
+          <span class="num">01 · Preset</span>
+          <h3>Dal naturale all'hard tune</h3>
+          <p>Scegli quanto deve essere veloce la correzione. I preset spiegano cosa fanno, da Melodic Rap all'Hard Tune anni 2000.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:1">
+          <img class="feat-img" src="assets/tune/02-note.jpg" alt="Editor delle note di VTUNE con una ripresa registrata" width="960" height="600" loading="lazy" decoding="async">
+          <span class="num">02 · Hybrid Tuning</span>
+          <h3>Le note, una per una</h3>
+          <p>VTUNE ascolta la voce e disegna le note. Le sposti, le tagli, le unisci; regoli vibrato, attacco e volume. Quelle che non tocchi restano come le hai registrate.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:2">
+          <img class="feat-img" src="assets/tune/03-riff.jpg" alt="Interruttore RIFFS e voce cantata e corretta a confronto" width="960" height="600" loading="lazy" decoding="async">
+          <span class="num">03 · Riff Detection</span>
+          <h3>I riff restano riff</h3>
+          <p>Abbellimenti, passaggi veloci e run passano come li hai cantati: si sposta solo la nota che li contiene. Senza Natural Riffs, lo scatto robotico.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:0">
+          <img class="feat-img" src="assets/tune/04-repair.jpg" alt="Interruttore REPAIR di VTUNE con la sua spiegazione" width="960" height="600" loading="lazy" decoding="async">
+          <span class="num">04 · Crack Repair</span>
+          <h3>Crack repair</h3>
+          <p>Dove la voce si incrina o cede su una nota tenuta, VTUNE suona al suo posto i cicli sani appena prima. Finali e consonanti restano intatti.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:1">
+          <img class="feat-img" src="assets/tune/05-voce.jpg" alt="Sezione Voice di VTUNE con il riconoscimento automatico" width="960" height="600" loading="lazy" decoding="async">
+          <span class="num">05 · Zero-Latency Formant</span>
+          <h3>Il timbro non cambia</h3>
+          <p>Le formanti restano dove le aveva la voce, anche spostandola lontano. Voice Auto riconosce da solo basso, tenore, contralto o soprano.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:2">
+          <img class="feat-img" src="assets/tune/06-follow.jpg" alt="Menu Follow di VTUNE con la voce principale scelta" width="960" height="600" loading="lazy" decoding="async">
+          <span class="num">06 · Follow Lead</span>
+          <h3>Follow Lead</h3>
+          <p>Un secondo VTUNE sui cori prende le note dalla voce principale e le canta nella sua ottava. Dove il lead tace, decide la scala.</p>
+        </div>
+      </div>
+
+      <div class="sysreq">
+        <article class="spec" data-reveal style="--d:0">
+          <h3>Formati e DAW</h3>
+          <div class="spec-tags"><span>AU</span><span>VST3</span></div>
+          <ul class="spec-list">
+            <li><strong>Logic Pro</strong></li>
+            <li><strong>Ableton Live</strong></li>
+            <li><strong>GarageBand</strong></li>
+            <li><strong>FL Studio</strong></li>
+            <li><strong>Cubase</strong> e <strong>Nuendo</strong></li>
+            <li><strong>Studio One</strong></li>
+            <li><strong>Reaper</strong></li>
+            <li><strong>Bitwig Studio</strong></li>
+          </ul>
+          <p class="spec-note">E ogni altra DAW che carica plugin AU o VST3. Pro Tools no: VTUNE non è AAX. Vuoi provarlo nella tua? <a href="#" data-buy data-tune="trialUrl" data-label="Prova di VTUNE">Prova 3 giorni gratis.</a></p>
+        </article>
+        <article class="spec" data-reveal style="--d:1">
+          <h3>Requisiti di sistema</h3>
+          <div class="spec-oss"><svg class="spec-os" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66zM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.01.61-2.66 1.37-.58.67-1.09 1.76-.96 2.8 1.02.08 2.05-.51 2.68-1.28z"/></svg><svg class="spec-os" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5.6 10.4 4.6v7H3zM11.4 4.4 21 3v8.6h-9.6zM3 12.6h7.4v7L3 18.6zM11.4 12.6H21V21l-9.6-1.4z"/></svg></div>
+          <ul class="spec-list">
+            <li><strong>Mac</strong>: macOS 11 (Big Sur) o più recente, Apple Silicon nativo o Intel</li>
+            <li><strong>Windows</strong>: Windows 10 o 11 a 64 bit</li>
+            <li>DAW a 64 bit con VST3 (o AU su Mac)</li>
+          </ul>
+          <p class="spec-note">Una licenza vale su Mac e Windows: fino a 3 computer.</p>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- VTUNE: prezzo e acquisto sempre a portata, in basso al centro -->
+    <div data-tune-only class="tune-bar" role="region" aria-label="Acquista VTUNE" aria-hidden="true">
+      <div class="tune-bar-price">€39<small>3 computer · AU · VST3 · macOS · Windows</small></div>
+      <div class="tune-bar-actions">
+        <a class="btn btn-gold btn-sm" href="#" data-buy data-tune="trialUrl" data-label="Prova di VTUNE">Prova 3 giorni</a>
+        <a class="btn btn-light btn-sm" href="#" data-buy data-tune="checkoutUrl" data-label="Checkout di VTUNE">Acquista VTUNE</a>
+      </div>
+    </div>
+
+    <section class="section" id="plugins" hidden>
       <div class="section-head">
         <div data-reveal>
           <p class="kicker">Catalogo · <span data-count></span> plugin</p>
@@ -74,7 +309,7 @@
       <div class="grid" id="grid"></div>
     </section>
 
-    <section class="section" id="all-access">
+    <section class="section" id="all-access" hidden>
       <div class="section-head center" data-reveal>
         <p class="kicker">Prezzi</p>
         <h2 class="h2">Uno o tutti.<br><span class="muted-h">Scegli tu.</span></h2>
@@ -93,10 +328,11 @@
           <ul class="checks">
             <li><span>Licenza perpetua</span></li>
             <li><span>Aggiornamenti gratuiti della versione</span></li>
-            <li><span>2 computer per licenza</span></li>
+            <li><span>3 computer per licenza</span></li>
             <li><span>VST3 e AU, nativi Apple Silicon</span></li>
+            <li><span>macOS e Windows</span></li>
           </ul>
-          <a class="btn btn-ghost wide" href="#/plugins">Scegli un plugin</a>
+          <a class="btn btn-ghost wide" href="#/tune">Scegli un plugin</a>
         </article>
 
         <article class="plan hl" data-reveal style="--d:1">
@@ -148,7 +384,820 @@
   <!-- DETTAGLIO PLUGIN -->
   <main id="detail" hidden></main>
 
-  <section class="cta" aria-labelledby="ctaTitle">
+  <!-- VSTREAM: la sua pagina (#/vstream) -->
+  <main id="vstream" class="vs" style="--c:#8b5cf6" hidden>
+    <section class="hero vs-hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <a class="chip-new" href="#/vstream/come">
+        <span class="chip-tag">New</span>
+        <span class="chip-text">Dal DAW al telefono, senza app</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <h1 class="display vs-display">Il tuo mix, <em class="grad">sul telefono.</em></h1>
+      <p class="hero-sub fade-up" style="--d:2">Metti VSTREAM sul master, inquadra il QR e ascolti il DAW dal telefono mentre lavori. Senza app, senza cavi, senza esportare. Velocissimo.</p>
+      <div class="hero-cta fade-up" style="--d:3">
+        <a class="btn btn-light" href="#" data-buy data-vstream="checkoutUrl" data-label="Checkout di VSTREAM" data-magnetic>Acquista VSTREAM · €2,99</a>
+        <a class="btn btn-glass" href="#" data-buy data-vstream="mac" data-label="Download di VSTREAM per Mac">Scarica per Mac</a>
+        <a class="btn btn-glass" href="#" data-buy data-vstream="windows" data-label="Download di VSTREAM per Windows">Scarica per Windows</a>
+      </div>
+      <p class="legal-note fade-up" style="--d:3">Licenza a vita · 3 computer · Mac e Windows · <span>Acquistando o scaricando accetti i</span> <a href="#/termini">Termini e condizioni</a>.</p>
+
+      <!-- Il plugin vero (embed/stream.html) e la pagina vera del telefono (embed/phone.html), animati -->
+      <div class="vs-scene fade-up" style="--d:4" aria-hidden="true">
+        <div class="vs-plugin"><iframe src="embed/stream.html" title="VSTREAM, la finestra del plugin" tabindex="-1"></iframe></div>
+
+        <svg class="vs-link" viewBox="0 0 160 60" preserveAspectRatio="none"><path d="M2 50 C 50 -8, 110 -8, 158 50"/></svg>
+
+        <figure class="vs-shot"><iframe src="embed/phone.html" title="VSTREAM, la pagina sul telefono mentre suona il master" tabindex="-1"></iframe></figure>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Nessuna app</span><span>QR code</span><span>PCM 16 bit</span><span>Fino a 96 kHz</span><span>Più telefoni insieme</span><span>AU</span><span>VST3</span><span>macOS</span><span>Windows</span>
+        <span>Nessuna app</span><span>QR code</span><span>PCM 16 bit</span><span>Fino a 96 kHz</span><span>Più telefoni insieme</span><span>AU</span><span>VST3</span><span>macOS</span><span>Windows</span>
+      </div>
+    </div>
+
+    <section class="section" id="vs-come">
+      <div class="section-head center" data-reveal>
+        <p class="kicker">Come funziona</p>
+        <h2 class="h2">Tre passi.<br><span class="muted-h">Il terzo è play.</span></h2>
+      </div>
+      <div class="features">
+        <div class="feat" data-reveal style="--d:0">
+          <span class="num">01 · Plugin</span>
+          <h3>Mettilo sul master</h3>
+          <p>VSTREAM lascia passare l'audio identico e ne manda una copia ai telefoni. Nel DAW non aggiunge latenza e non cambia niente.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:1">
+          <span class="num">02 · QR code</span>
+          <h3>Inquadra il QR</h3>
+          <p>Telefono e PC sulla stessa rete Wi-Fi: la fotocamera apre la pagina di VSTREAM. Niente app da installare, niente account.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:2">
+          <span class="num">03 · Play</span>
+          <h3>Ascolta mentre lavori</h3>
+          <p>Il DAW suona e il telefono ascolta. Sposti un fader, cambi un EQ: lo senti subito, senza esportare niente.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tech" id="vs-tech">
+      <div class="section-head center" data-reveal>
+        <p class="kicker">Le tecnologie di VSTREAM</p>
+        <h2 class="h2">Veloce. Pulito.<br><span class="grad">Sempre a tempo.</span></h2>
+        <p class="lead">Un piccolo server dentro il plugin, una pagina web sul telefono e niente in mezzo.</p>
+      </div>
+
+      <div class="tech-list">
+        <article class="tech-row" data-reveal>
+          <div class="tech-media">
+            <div class="vs-media vs-lat" aria-hidden="true">
+              <div class="vs-lat-row"><span>Minimo</span><div class="vs-lat-track"><i style="--w:19%"></i></div><b>50 ms</b></div>
+              <div class="vs-lat-row"><span>Normale</span><div class="vs-lat-track"><i style="--w:42%"></i></div><b>110 ms</b></div>
+              <div class="vs-lat-row"><span>Stabile</span><div class="vs-lat-track"><i style="--w:100%"></i></div><b>260 ms</b></div>
+              <div class="vs-lat-ends"><span>DAW</span><span>Telefono</span></div>
+            </div>
+          </div>
+          <div class="tech-copy">
+            <p class="tech-name">Latenza minima</p>
+            <h3>Lo senti mentre lo cambi.</h3>
+            <p>Scegli tu quanto ritardo tenere. Minimo per lavorare con il telefono in mano, Normale per tutti i giorni, Stabile quando il Wi-Fi è affollato. Il telefono mostra il ritardo vero, rete compresa.</p>
+            <div class="tech-stat"><b>50 ms</b><span>di buffer in Minimo, il ritardo più basso</span></div>
+          </div>
+        </article>
+
+        <article class="tech-row flip" data-reveal>
+          <div class="tech-media">
+            <div class="vs-media vs-pcm" aria-hidden="true">
+              <svg class="vs-pcm-wave" viewBox="0 0 400 120" preserveAspectRatio="none"><defs><linearGradient id="vsg" x1="0" x2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset=".5" stop-color="#f7a3a0"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><path d="M0 60 C 20 10, 40 10, 60 60 S 100 110, 120 60 S 150 20, 170 60 S 200 95, 220 60 S 250 0, 280 60 S 320 115, 340 60 S 380 30, 400 60" fill="none" stroke="url(#vsg)" stroke-width="3"/></svg>
+              <div class="vs-pcm-tags"><span>PCM</span><span>16 bit</span><span>stereo</span></div>
+              <div class="vs-pcm-rates"><span>44,1 kHz</span><span class="on">48 kHz</span><span>96 kHz</span></div>
+            </div>
+          </div>
+          <div class="tech-copy">
+            <p class="tech-name">Qualità piena</p>
+            <h3>Il mix com'è. Non un MP3.</h3>
+            <p>Niente compressione: VSTREAM manda audio PCM a 16 bit, stereo, alla frequenza del tuo progetto. Il passaggio a 16 bit ha il suo dither. Quello che senti sul telefono è il mix, non una sua copia schiacciata.</p>
+            <div class="tech-stat"><b>16 bit</b><span>PCM non compresso, alla frequenza del DAW</span></div>
+          </div>
+        </article>
+
+        <article class="tech-row" data-reveal>
+          <div class="tech-media">
+            <div class="vs-media vs-clock" aria-hidden="true">
+              <div class="vs-clock-line"><span>PC</span><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20 Q 18.75 0 37.5 20 T 75 20 T 112.5 20 T 150 20 T 187.5 20 T 225 20 T 262.5 20 T 300 20 T 337.5 20 T 375 20"/></svg></div>
+              <div class="vs-clock-line"><span>Telefono</span><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20 Q 18.75 0 37.5 20 T 75 20 T 112.5 20 T 150 20 T 187.5 20 T 225 20 T 262.5 20 T 300 20 T 337.5 20 T 375 20"/></svg></div>
+              <div class="vs-gauge"><span>Buffer</span><div class="vs-gauge-bar"><i></i></div><b>110 ms</b></div>
+            </div>
+          </div>
+          <div class="tech-copy">
+            <p class="tech-name">Clock Lock</p>
+            <h3>Un'ora dopo, ancora a tempo.</h3>
+            <p>Il PC e il telefono hanno due orologi che si allontanano piano piano. VSTREAM legge l'audio un pelo più veloce o più lento, al massimo dello 0,15%: il ritardo resta quello scelto e l'intonazione non si muove.</p>
+            <div class="tech-stat"><b>&lt; 3 cent</b><span>di correzione, sotto quello che l'orecchio sente</span></div>
+          </div>
+        </article>
+
+        <article class="tech-row flip" data-reveal>
+          <div class="tech-media">
+            <div class="vs-media vs-multi" aria-hidden="true">
+              <div class="vs-multi-col">
+                <span class="vs-eyebrow">Sorgenti</span>
+                <span class="vs-chip on">Master</span>
+                <span class="vs-chip">Voce</span>
+                <span class="vs-chip">Beat</span>
+              </div>
+              <div class="vs-multi-col">
+                <span class="vs-eyebrow">In ascolto</span>
+                <span class="vs-dev"><i></i>iPhone</span>
+                <span class="vs-dev"><i></i>Android</span>
+                <span class="vs-dev"><i></i>iPad</span>
+              </div>
+            </div>
+          </div>
+          <div class="tech-copy">
+            <p class="tech-name">Multi Source</p>
+            <h3>Tutta la stanza ascolta.</h3>
+            <p>Si collegano più telefoni insieme, e il plugin ti dice chi sta ascoltando. Metti VSTREAM anche su un bus o su una traccia: dal telefono scegli cosa sentire, ognuna con il nome che le dai.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="tech-more">
+        <article class="tech-mini" data-reveal style="--d:0">
+          <p class="tech-name">Mono</p>
+          <h3>Come lo sentirà la gente.</h3>
+          <p>Un interruttore somma sinistro e destro, come l'altoparlante di un telefono. Senti subito se la voce o il basso spariscono.</p>
+        </article>
+        <article class="tech-mini" data-reveal style="--d:1">
+          <p class="tech-name">On Air</p>
+          <h3>Spegni quando vuoi.</h3>
+          <p>Un tasto ferma l'invio a tutti i telefoni. Il DAW continua a suonare come prima.</p>
+        </article>
+        <article class="tech-mini" data-reveal style="--d:2">
+          <p class="tech-name">Web App</p>
+          <h3>Come un'app, senza esserlo.</h3>
+          <p>Su iPhone: Condividi, poi Aggiungi a Home. La volta dopo VSTREAM si apre con un tocco, a schermo intero.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="vs-quando">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="kicker">Quando ti serve</p>
+          <h2 class="h2">Il mix fuori<br><span class="muted-h">dalle casse da studio.</span></h2>
+        </div>
+        <p class="lead">Quasi tutti ascolteranno la tua musica da un telefono. VSTREAM te lo fa sentire prima di esportare.</p>
+      </div>
+      <div class="features">
+        <div class="feat" data-reveal style="--d:0">
+          <span class="num">01 · Phone check</span>
+          <h3>Il test dell'altoparlante</h3>
+          <p>Voce, basse e kick sull'altoparlante vero, mentre il progetto è ancora aperto. Correggi e risenti in un secondo.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:1">
+          <span class="num">02 · Altra stanza</span>
+          <h3>Il mix dal divano</h3>
+          <p>Allontanati dalla scrivania e ascolta da un'altra stanza, con le cuffie del telefono. Le orecchie fresche sentono di più.</p>
+        </div>
+        <div class="feat" data-reveal style="--d:2">
+          <span class="num">03 · In studio</span>
+          <h3>Il cliente ascolta</h3>
+          <p>Chi è venuto a sentire il pezzo ascolta dal suo telefono mentre lavori, senza passarsi le cuffie.</p>
+        </div>
+      </div>
+
+      <div class="sysreq">
+        <article class="spec" data-reveal style="--d:0">
+          <h3>Formati e DAW</h3>
+          <div class="spec-tags"><span>AU</span><span>VST3</span></div>
+          <ul class="spec-list">
+            <li><strong>Logic Pro</strong></li>
+            <li><strong>Ableton Live</strong></li>
+            <li><strong>FL Studio</strong></li>
+            <li><strong>Cubase</strong> e <strong>Nuendo</strong></li>
+            <li><strong>Studio One</strong></li>
+            <li><strong>LUNA</strong></li>
+            <li><strong>Reaper</strong></li>
+            <li><strong>Bitwig Studio</strong></li>
+          </ul>
+          <p class="spec-note">E ogni altra DAW che carica plugin AU o VST3. Pro Tools no: VSTREAM non è AAX.</p>
+        </article>
+        <article class="spec" data-reveal style="--d:1">
+          <h3>Cosa serve</h3>
+          <div class="spec-tags"><span>Wi-Fi</span><span>Browser</span></div>
+          <ul class="spec-list">
+            <li><strong>PC</strong>: Mac con macOS 11 o più recente, o Windows 10 e 11 a 64 bit</li>
+            <li><strong>Telefono</strong>: iPhone o Android, con Safari o Chrome</li>
+            <li>PC e telefono sulla <strong>stessa rete</strong>, anche l'hotspot del telefono</li>
+          </ul>
+          <p class="spec-note">Il plugin ascolta sulla porta 7171. Se è occupata, prende la prima libera fino alla 7180.</p>
+        </article>
+      </div>
+
+      <div class="tech-cta" data-reveal>
+        <a class="btn btn-light" href="#" data-buy data-vstream="checkoutUrl" data-label="Checkout di VSTREAM" data-magnetic>Acquista VSTREAM · €2,99</a>
+        <a class="btn btn-glass" href="#" data-buy data-vstream="mac" data-label="Download di VSTREAM per Mac">Scarica per Mac</a>
+        <a class="btn btn-glass" href="#" data-buy data-vstream="windows" data-label="Download di VSTREAM per Windows">Scarica per Windows</a>
+        <a data-tune-only class="btn btn-glass" href="#/tune">Scopri VTUNE</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- DOPO IL PAGAMENTO (#/grazie, #/thanks): il Payment Link di Stripe riporta qui -->
+  <main id="thanks" class="thanks" hidden>
+    <section class="section thanks-wrap">
+      <p class="kicker">Pagamento ricevuto</p>
+      <h1 class="h2">Grazie.<br><span class="grad">La licenza è in arrivo.</span></h1>
+      <p class="lead">Ti abbiamo mandato un'email con il codice di licenza, il file VSTREAM.lic e i link per scaricare VSTREAM. Di solito arriva entro un minuto: se non la vedi, controlla anche lo spam.</p>
+      <ol class="thanks-steps">
+        <li>Installa VSTREAM sul tuo computer.</li>
+        <li>Aprilo nella DAW, sul master o su una traccia.</li>
+        <li>Clicca Licence in basso a destra e trascina VSTREAM.lic, o incolla il codice.</li>
+      </ol>
+      <div class="hero-cta">
+        <a class="btn btn-light" href="#" data-buy data-vstream="mac" data-label="Download di VSTREAM per Mac">Scarica per Mac</a>
+        <a class="btn btn-light" href="#" data-buy data-vstream="windows" data-label="Download di VSTREAM per Windows">Scarica per Windows</a>
+      </div>
+      <p class="legal-note"><span>L'email non è arrivata dopo 10 minuti? Scrivi a</span> <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a> <span>con l'indirizzo che hai usato per pagare.</span></p>
+    </section>
+  </main>
+
+  <!-- TERMINI E CONDIZIONI (#/termini, #/terms): italiano e inglese, si vede la lingua del sito -->
+  <main id="legal" class="legal" hidden>
+    <div class="section legal-wrap">
+    <article class="legal-doc" lang="it">
+      <header class="legal-head">
+        <p class="kicker">Documenti legali</p>
+        <h1 class="h2">Termini e condizioni</h1>
+        <p class="legal-meta">Versione 1.1 · in vigore dal 16 ottobre 2026</p>
+        <p class="lead">Le regole per scaricare, provare, comprare e usare i plugin di Vault Plugins. Le abbiamo scritte per essere lette: frasi semplici, niente sorprese.</p>
+        <button type="button" class="btn btn-ghost btn-sm legal-print" data-print>Stampa o salva in PDF</button>
+      </header>
+
+      <aside class="legal-brief">
+        <h2>In breve</h2>
+        <ul>
+          <li>Compri una licenza d'uso, non il software. Ogni licenza vale su 3 computer, Mac e Windows insieme.</li>
+          <li>La licenza singola è tua a tempo indeterminato, con gli aggiornamenti gratuiti della versione acquistata.</li>
+          <li>Hai 14 giorni per ripensarci, anche dopo aver attivato la licenza: ti rimborsiamo tutto.</li>
+          <li>Se un plugin non funziona come promesso hai la garanzia legale di 2 anni: lo sistemiamo o ti rimborsiamo.</li>
+          <li>L'audio che crei con i plugin è tuo, senza royalty.</li>
+        </ul>
+        <p>Il riassunto aiuta a orientarsi ma non sostituisce i termini qui sotto.</p>
+      </aside>
+
+      <nav class="legal-toc" aria-label="Indice">
+        <h2>Indice</h2>
+        <ol>
+          <li><a href="#/termini/chi-siamo">1. Chi siamo e a cosa servono questi termini</a></li>
+          <li><a href="#/termini/definizioni">2. Parole che usiamo</a></li>
+          <li><a href="#/termini/prodotti">3. I Plugin e cosa serve per usarli</a></li>
+          <li><a href="#/termini/acquisto">4. Come si conclude l'acquisto</a></li>
+          <li><a href="#/termini/prezzi">5. Prezzi e pagamento</a></li>
+          <li><a href="#/termini/prova">6. Prova gratuita</a></li>
+          <li><a href="#/termini/abbonamento">7. Abbonamento All Access</a></li>
+          <li><a href="#/termini/licenza">8. Licenza d'uso</a></li>
+          <li><a href="#/termini/attivazione">9. Attivazione e collegamento a internet</a></li>
+          <li><a href="#/termini/aggiornamenti">10. Aggiornamenti</a></li>
+          <li><a href="#/termini/rete-locale">11. VSTREAM e la rete locale</a></li>
+          <li><a href="#/termini/recesso">12. Diritto di recesso</a></li>
+          <li><a href="#/termini/rimborsi">13. Rimborsi oltre il recesso</a></li>
+          <li><a href="#/termini/garanzia">14. Garanzia legale di conformità</a></li>
+          <li><a href="#/termini/responsabilita">15. Responsabilità</a></li>
+          <li><a href="#/termini/proprieta">16. Proprietà intellettuale e marchi</a></li>
+          <li><a href="#/termini/sospensione">17. Sospensione e revoca della Licenza</a></li>
+          <li><a href="#/termini/modifiche">18. Modifiche a questi termini</a></li>
+          <li><a href="#/termini/legge">19. Legge applicabile e controversie</a></li>
+          <li><a href="#/termini/generali">20. Disposizioni generali</a></li>
+          <li><a href="#/termini/contatti">21. Contatti</a></li>
+          <li><a href="#/termini/modulo">Modulo di recesso tipo</a></li>
+        </ol>
+      </nav>
+
+      <section id="t-chi-siamo">
+        <h2>1. Chi siamo e a cosa servono questi termini</h2>
+        <p>Vault Plugins è il sito zazziplugins.com con i plugin audio che vi trovi, come VTUNE e VSTREAM (insieme, "i Plugin"). È un'attività di <strong>Lorenzo Zazzera</strong>, Via San Mandato 16, 80136 Napoli (NA), Italia, codice fiscale ZZZLNZ02P15F839N, email <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a> ("noi").</p>
+        <p>Questi termini sono il contratto tra te e noi ogni volta che scarichi, provi, compri o usi un Plugin, gratuito o a pagamento. Comprendono la licenza d'uso dei Plugin (sezione 8).</p>
+        <p>Li accetti al checkout, quando compri o inizi una Prova, oppure, per i Plugin gratuiti, quando li scarichi o li installi. Se non li accetti, non scaricare e non usare i Plugin.</p>
+        <p>Se compri per scopi estranei alla tua attività professionale sei un <strong>consumatore</strong>: niente in questi termini toglie o riduce i diritti che la legge ti riconosce e che un contratto non può escludere. Se una clausola è in contrasto con quelle norme, valgono le norme. Le parti dedicate ai consumatori (recesso, garanzia legale dei consumatori, foro del consumatore) non si applicano a chi compra per la propria attività professionale o d'impresa.</p>
+      </section>
+
+      <section id="t-definizioni">
+        <h2>2. Parole che usiamo</h2>
+        <dl class="legal-defs">
+          <dt>Plugin</dt><dd>un software audio di Vault Plugins in formato VST3 o AU, insieme ai preset, ai manuali e ai file che lo accompagnano.</dd>
+          <dt>Licenza</dt><dd>il diritto di usare un Plugin alle condizioni della sezione 8. Può essere singola (pagamento unico), in abbonamento, in Prova o gratuita.</dd>
+          <dt>Codice di licenza</dt><dd>il codice, o il file .lic, che ricevi via email e che sblocca il Plugin.</dd>
+          <dt>Attivazione</dt><dd>il collegamento di un Codice di licenza a uno dei tuoi computer.</dd>
+          <dt>Versione</dt><dd>la serie principale di un Plugin, indicata dal primo numero: per esempio, tutte le 1.x sono la Versione 1. Le versioni 0.x fanno parte della Versione 1.</dd>
+          <dt>Prova</dt><dd>il periodo gratuito, con tutte le funzioni, che alcuni Plugin offrono prima dell'acquisto.</dd>
+        </dl>
+      </section>
+
+      <section id="t-prodotti">
+        <h2>3. I Plugin e cosa serve per usarli</h2>
+        <p>Cosa fa ogni Plugin è descritto nella sua pagina sul sito, e la descrizione fa parte del contratto. Le immagini mostrano l'interfaccia reale, che può cambiare un po' da un aggiornamento all'altro.</p>
+        <p>Per usare i Plugin servono:</p>
+        <ul>
+          <li>un Mac con macOS 11 (Big Sur) o successivo, Apple Silicon o Intel, oppure un PC con Windows 10 o 11 a 64 bit;</li>
+          <li>una DAW a 64 bit che carica plugin VST3 (o AU su Mac);</li>
+          <li>una connessione a internet per l'Attivazione (sezione 9).</li>
+        </ul>
+        <p>I Plugin non sono disponibili in formato AAX, quindi non funzionano in Pro Tools. Eventuali requisiti in più sono indicati nella pagina di ciascun Plugin. Ti consigliamo di provare il Plugin sul tuo sistema prima di comprarlo, con la Prova o la versione gratuita quando ci sono.</p>
+        <p>Alcuni Plugin si scaricano gratis. Anche per loro valgono questi termini, tranne le parti su prezzi, pagamento e recesso.</p>
+      </section>
+
+      <section id="t-acquisto">
+        <h2>4. Come si conclude l'acquisto</h2>
+        <p>Il contratto si conclude online, in italiano o in inglese, in quattro passaggi:</p>
+        <ol>
+          <li>premi Acquista o Prova gratis su un Plugin: si apre la pagina di pagamento di Stripe con il riepilogo dell'ordine, cioè il Plugin, il tipo di Licenza, il prezzo finale con le imposte e, per la Prova, la data del primo addebito;</li>
+          <li>prima di pagare puoi controllare e correggere i dati inseriti, oppure tornare indietro senza impegno. Al checkout ti chiediamo anche di accettare questi termini;</li>
+          <li>il contratto è concluso quando confermi il pagamento o l'inizio della Prova;</li>
+          <li>ricevi via email la conferma con il riepilogo dell'ordine, il Codice di licenza, il link per scaricare il Plugin e il link a questi termini. Conservala: è la tua copia del contratto. Puoi anche stampare questa pagina o salvarla in PDF.</li>
+        </ol>
+        <p>Conserviamo i dati dell'ordine per gli obblighi contabili e per assisterti. Se perdi l'email di conferma o il Codice di licenza, scrivici dall'indirizzo usato per l'acquisto e te li rimandiamo.</p>
+      </section>
+
+      <section id="t-prezzi">
+        <h2>5. Prezzi e pagamento</h2>
+        <p>I prezzi sono in euro. Il prezzo finale, imposte comprese, è quello mostrato al checkout prima che tu confermi, senza costi aggiuntivi. La tua banca può applicare commissioni proprie, per esempio per il cambio valuta.</p>
+        <p>I pagamenti passano da Stripe, che per i nostri acquisti agisce come rivenditore (merchant of record) con il suo servizio Managed Payments: incassa l'importo, calcola e versa le imposte, ti manda la ricevuta e gestisce le contestazioni di pagamento. Per questo sull'estratto conto l'addebito può comparire con il nome di Stripe o di Link. Si paga con carta o con gli altri metodi mostrati al checkout; i dati della carta li tratta Stripe e noi non li vediamo. La Licenza e il Plugin, invece, te li forniamo noi alle condizioni di questi termini.</p>
+        <p>Possiamo cambiare i prezzi in qualsiasi momento, ma il cambio non tocca gli ordini già conclusi. Se un prezzo sul sito è sbagliato in modo evidente (per esempio €3,90 invece di €39), ti avvisiamo prima di consegnare la Licenza: puoi confermare l'ordine al prezzo corretto o annullarlo con il rimborso completo.</p>
+        <p>Sconti e codici promozionali valgono alle condizioni indicate quando li offriamo e non si sommano tra loro, salvo diversa indicazione.</p>
+        <p>Se contesti con la tua banca un pagamento (chargeback), la Licenza collegata può restare sospesa finché la contestazione è aperta. Prima di farlo scrivici: quasi sempre si risolve in fretta.</p>
+      </section>
+
+      <section id="t-prova">
+        <h2>6. Prova gratuita</h2>
+        <p>Alcuni Plugin possono offrire una Prova gratuita di qualche giorno, con tutte le funzioni: se c'è, lo trovi nella pagina del Plugin e nel riepilogo del checkout. VSTREAM non ha una Prova gratuita: al suo posto hai il recesso di 14 giorni della sezione 12.</p>
+        <p>Per iniziare una Prova inserisci un metodo di pagamento al checkout. Durante la Prova non paghi niente. Alla fine, se non l'hai annullata, ti viene addebitato il prezzo della Licenza indicato al checkout e il Plugin continua a funzionare senza interruzioni.</p>
+        <p>Puoi annullare la Prova in qualsiasi momento prima che finisca, senza costi, con gli strumenti indicati nell'email di conferma della Prova oppure scrivendo a <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a>: fa fede l'ora di invio della tua email. Se la annulli, alla fine della Prova il Plugin smette di funzionare finché non attivi una Licenza. I tuoi progetti restano intatti.</p>
+        <p>La Prova spetta una volta per persona e per Plugin. Possiamo rifiutare una nuova Prova a chi l'ha già avuta, per esempio con un altro indirizzo email.</p>
+      </section>
+
+      <section id="t-abbonamento">
+        <h2>7. Abbonamento All Access</h2>
+        <p>Quando è disponibile, l'abbonamento All Access dà accesso a tutti i Plugin del catalogo, compresi quelli che usciranno, per tutto il tempo in cui resta attivo. Può essere mensile o annuale.</p>
+        <p>L'abbonamento si rinnova da solo alla fine di ogni periodo, al prezzo in vigore, finché non lo disdici. Puoi disdirlo quando vuoi, senza costi né preavviso, con gli strumenti indicati nell'email di conferma o scrivendoci. La disdetta ferma i rinnovi e l'accesso resta attivo fino alla fine del periodo già pagato, che non viene rimborsato, salvo i casi delle sezioni 12 e 14.</p>
+        <p>Se aumentiamo il prezzo, te lo scriviamo almeno 30 giorni prima del rinnovo a cui si applica, così puoi disdire prima senza costi. L'aumento non tocca mai il periodo in corso.</p>
+        <p>Se un rinnovo non va a buon fine, Stripe riprova per qualche giorno. Se il pagamento non arriva, l'abbonamento si chiude.</p>
+        <p>Quando l'abbonamento finisce, i Plugin inclusi si aprono in bypass, cioè lasciano passare l'audio senza elaborarlo. I progetti e le impostazioni salvate restano, e tornano attivi se ti abboni di nuovo o compri la Licenza singola del Plugin.</p>
+        <p>Il catalogo può cambiare. Se togliamo un Plugin dall'abbonamento e questo peggiora in modo non trascurabile ciò che hai pagato, puoi recedere entro 30 giorni dalla comunicazione e ti rimborsiamo la parte di periodo non goduta.</p>
+      </section>
+
+      <section id="t-licenza">
+        <h2>8. Licenza d'uso</h2>
+        <p>Il software resta nostro: con la Licenza compri il diritto di usarlo, non il software. Ti concediamo una licenza personale e non esclusiva per installare e usare il Plugin alle condizioni di questa sezione.</p>
+        <h3>Durata</h3>
+        <p>La Licenza singola vale a tempo indeterminato per la Versione acquistata. La Licenza in abbonamento dura finché l'abbonamento è attivo, quella di Prova per la durata della Prova. I Plugin gratuiti li puoi usare a tempo indeterminato.</p>
+        <h3>Computer</h3>
+        <p>Ogni Licenza si può attivare su 3 computer alla volta, Mac e Windows insieme. I computer devono essere tuoi o usati da te. Se la Licenza è intestata a uno studio o a un'azienda, possono usarla le persone che lavorano per loro, sempre entro i 3 computer.</p>
+        <p>Per passare a un altro computer, disattiva la Licenza su uno di quelli attivi con il pulsante nel Plugin. Le disattivazioni hanno un limite mensile, per evitare che una Licenza giri tra più persone. Se lo raggiungi, o se un computer si è rotto o ti è stato rubato, scrivici e lo liberiamo noi.</p>
+        <h3>Cosa puoi fare</h3>
+        <p>Puoi usare i Plugin per lavori personali e commerciali: produzioni, mix, master, concerti, dirette, lavori per clienti. L'audio che crei è tuo e non ci devi royalty né citazioni. Puoi usare e modificare i preset inclusi nelle tue produzioni.</p>
+        <h3>Cosa non puoi fare</h3>
+        <ul>
+          <li>condividere o pubblicare il Codice di licenza o il file .lic, o usarli su più di 3 computer;</li>
+          <li>aggirare, disattivare o manomettere il sistema di licenza, o usare copie modificate del Plugin;</li>
+          <li>copiare, distribuire, vendere, noleggiare, prestare o sublicenziare il Plugin, o renderlo disponibile ad altri, per esempio su un server o dentro un pacchetto di software;</li>
+          <li>vendere o distribuire i preset inclusi come preset;</li>
+          <li>decompilare, disassemblare o fare reverse engineering del Plugin, salvo nei limiti in cui la legge lo consente e non può essere escluso (art. 64-quater della legge 633/1941);</li>
+          <li>usare il Plugin, la sua interfaccia o i suoi suoni per creare un prodotto concorrente;</li>
+          <li>togliere o modificare gli avvisi di copyright e i marchi.</li>
+        </ul>
+        <h3>Cedere la Licenza</h3>
+        <p>Puoi cedere una Licenza singola a un'altra persona, per intero. Scrivici: la intestiamo al nuovo titolare e la disattiviamo sui tuoi computer, e da quel momento non puoi più usarla. Le Licenze in Prova, quelle in abbonamento e le copie date per recensioni non si possono cedere.</p>
+        <h3>Componenti di terzi</h3>
+        <p>I Plugin possono contenere componenti di terzi con licenze proprie, che restano valide per quei componenti. Le relative note sono nel pacchetto di installazione, oppure te le mandiamo su richiesta.</p>
+      </section>
+
+      <section id="t-attivazione">
+        <h2>9. Attivazione e collegamento a internet</h2>
+        <p>I Plugin a pagamento si attivano inserendo il Codice di licenza o trascinando il file .lic nel Plugin, e per farlo serve internet. Dopo l'Attivazione funzionano anche senza connessione, e ogni tanto si ricollegano da soli per rinnovarla. Se un computer resta offline a lungo, a un certo punto il Plugin ti chiede di collegarti per continuare.</p>
+        <p>Per attivare e rinnovare la Licenza, il Plugin manda ai nostri server il Codice di licenza, un identificativo del computer calcolato dal Plugin, il nome del computer (per mostrarti quali computer usano la Licenza), il nome e la versione del Plugin. Come per ogni collegamento, il server riceve anche l'indirizzo IP. Usiamo questi dati solo per gestire le Licenze, prevenire gli abusi e assisterti: non li vendiamo e non li usiamo per pubblicità. Per qualsiasi richiesta sui tuoi dati scrivici a <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a>.</p>
+        <p>Tieni corrette la data e l'ora del computer: una data sbagliata può impedire la verifica della Licenza.</p>
+        <p>Se i nostri server sono momentaneamente irraggiungibili, i Plugin già attivati continuano a funzionare e noi ripristiniamo il servizio il prima possibile. Se un giorno dovessimo chiudere il servizio di attivazione, te lo diremo con almeno 90 giorni di anticipo e pubblicheremo un aggiornamento gratuito che permetta di usare le Licenze singole senza verifica online.</p>
+      </section>
+
+      <section id="t-aggiornamenti">
+        <h2>10. Aggiornamenti</h2>
+        <p>Con la Licenza singola ricevi gratis tutti gli aggiornamenti della Versione acquistata: correzioni, compatibilità con i nuovi sistemi e migliorie. Una nuova Versione (per esempio la 2.0) può essere a pagamento, e quella che hai già continui a usarla senza limiti. Con l'abbonamento hai sempre l'ultima Versione.</p>
+        <p>Ti forniamo, e ti segnaliamo, gli aggiornamenti necessari a mantenere il Plugin conforme, compresi quelli di sicurezza, per tutto il periodo previsto dalla legge (art. 135-decies del Codice del Consumo). Installarli è una tua scelta, ma se non installi un aggiornamento che ti abbiamo segnalato non rispondiamo dei difetti che quell'aggiornamento avrebbe corretto.</p>
+        <p>Lavoriamo per mantenere i Plugin compatibili con le nuove versioni dei sistemi operativi e delle DAW, ma non possiamo garantirlo per versioni uscite dopo il tuo acquisto, salvo quanto previsto dalla garanzia legale.</p>
+        <p>Possiamo modificare i Plugin per migliorarli o per ragioni tecniche e legali. Se una modifica peggiora in modo non trascurabile il tuo uso del Plugin te lo comunichiamo e, se sei un consumatore, puoi recedere gratis entro 30 giorni dalla comunicazione (art. 135-undecies del Codice del Consumo), a meno che ti permettiamo di continuare a usare la versione precedente.</p>
+      </section>
+
+      <section id="t-rete-locale">
+        <h2>11. VSTREAM e la rete locale</h2>
+        <p>VSTREAM manda l'audio del tuo DAW ai telefoni collegati alla stessa rete locale, attraverso un piccolo server che apre sul tuo computer (porte da 7171 a 7180). L'audio non passa da internet né dai nostri server: non lo riceviamo, non lo ascoltiamo e non lo registriamo.</p>
+        <p>Mentre VSTREAM è attivo, chiunque sia sulla stessa rete e abbia l'indirizzo o il QR può ascoltare, e il plugin mostra quali telefoni sono collegati. Usalo su reti di cui ti fidi, come quella di casa o dello studio: su reti pubbliche o condivise (hotel, coworking, eventi) altre persone potrebbero ascoltare. Per smettere di trasmettere, disattiva il plugin o toglilo dalla traccia.</p>
+        <p>Sei tu responsabile di avere i diritti sull'audio che trasmetti e di proteggerne la riservatezza, per esempio quando lavori ai brani inediti di un cliente.</p>
+        <p>Il sistema operativo o il firewall possono chiederti il permesso di accettare connessioni in entrata: serve a far collegare i telefoni. La qualità dell'ascolto dipende dalla rete Wi-Fi, e le interruzioni dovute a una rete lenta, congestionata o che isola i dispositivi tra loro non sono un difetto del plugin.</p>
+      </section>
+
+      <section id="t-recesso">
+        <h2>12. Diritto di recesso</h2>
+        <p>Se sei un consumatore puoi recedere dal contratto entro 14 giorni da quando l'hai concluso, senza dare motivazioni. Vale anche se hai già scaricato il Plugin e attivato la Licenza: non ti chiediamo di rinunciarci al checkout.</p>
+        <p>Per recedere mandaci una dichiarazione esplicita entro i 14 giorni, scrivendo a <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a> dall'indirizzo usato per l'acquisto (va bene anche rispondere all'email della Licenza), con la data dell'ordine e il Plugin. Puoi usare il <a href="#/termini/modulo">modulo in fondo a questa pagina</a>, ma non è obbligatorio. Basta inviarla prima che i 14 giorni scadano.</p>
+        <p>Se il recesso è valido ti rimborsiamo entro 14 giorni da quando lo riceviamo, con lo stesso metodo di pagamento usato per l'acquisto e senza costi per te. Con il rimborso la Licenza si disattiva su tutti i computer: disinstalla il Plugin e non usarlo più.</p>
+        <p>Per una Prova vale la sezione 6: durante la Prova puoi annullare senza costi. Per un abbonamento, i 14 giorni valgono per il primo periodo; poi puoi disdire quando vuoi (sezione 7).</p>
+      </section>
+
+      <section id="t-rimborsi">
+        <h2>13. Rimborsi oltre il recesso</h2>
+        <p>Oltre a quanto previsto dalla legge, possiamo concedere un rimborso caso per caso. Se hai comprato per errore due volte lo stesso Plugin, ti rimborsiamo sempre il secondo acquisto: scrivici entro 30 giorni.</p>
+        <p>Ogni rimborso avviene con lo stesso metodo di pagamento e disattiva la Licenza rimborsata.</p>
+      </section>
+
+      <section id="t-garanzia">
+        <h2>14. Garanzia legale di conformità</h2>
+        <p>Se sei un consumatore hai la garanzia legale di conformità per i contenuti digitali prevista dagli articoli 135-octies e seguenti del Codice del Consumo (D.Lgs. 206/2005). Il Plugin deve corrispondere alla sua descrizione, funzionare sui sistemi indicati nei requisiti e avere le qualità che puoi ragionevolmente aspettarti, compresi gli aggiornamenti della sezione 10.</p>
+        <p>Per la Licenza singola rispondiamo dei difetti che si manifestano entro 2 anni dalla consegna; per l'abbonamento, dei difetti che si manifestano mentre è attivo.</p>
+        <p>Se il Plugin non è conforme puoi chiederci di renderlo conforme, gratis ed entro un tempo ragionevole. Se non è possibile, se non lo facciamo o se il difetto è grave, puoi chiedere una riduzione proporzionata del prezzo oppure, se il difetto non è di lieve entità, la risoluzione del contratto con il rimborso.</p>
+        <p>Per segnalare un difetto scrivici descrivendo il problema, il tuo sistema operativo, la DAW e la versione del Plugin. Potremmo chiederti qualche informazione in più sul tuo sistema, per capire se il problema dipende da lì: per legge sei tenuto a collaborare nei limiti del ragionevole, e noi usiamo il mezzo meno invasivo possibile.</p>
+        <p>Non sono difetti del Plugin i problemi causati da sistemi o DAW fuori dai requisiti, da copie modificate, da un uso contrario a questi termini, da malware o da guasti del tuo hardware.</p>
+        <p>Se non sei un consumatore, si applica la garanzia prevista dal codice civile, nei limiti della sezione 15.</p>
+      </section>
+
+      <section id="t-responsabilita">
+        <h2>15. Responsabilità</h2>
+        <p>Costruiamo e testiamo i Plugin con cura, ma nessun software è privo di errori. Salva spesso i progetti e tienine una copia di sicurezza.</p>
+        <p>Nei limiti consentiti dalla legge non rispondiamo di:</p>
+        <ul>
+          <li>danni indiretti o che non erano prevedibili quando hai concluso il contratto;</li>
+          <li>mancati guadagni od occasioni perse;</li>
+          <li>perdite di progetti o file che una normale copia di sicurezza avrebbe evitato;</li>
+          <li>danni causati da un uso contrario a questi termini o fuori dai requisiti;</li>
+          <li>interruzioni di reti o di servizi di terzi fuori dal nostro ragionevole controllo.</li>
+        </ul>
+        <p>Se non sei un consumatore, la nostra responsabilità complessiva verso di te è limitata a quanto hai pagato per la Licenza interessata nei 12 mesi precedenti al fatto.</p>
+        <p>Queste limitazioni non valgono in caso di dolo o colpa grave, per i danni alla persona e in ogni altro caso in cui la legge non permette di limitare la responsabilità, e non toccano la garanzia legale.</p>
+        <h3>Volume e udito</h3>
+        <p>I Plugin possono produrre suoni forti, per esempio con correzioni estreme o ascoltando in cuffia con VSTREAM. Tieni un volume moderato e alzalo con gradualità. Se senti fastidio, fischi o ronzii, smetti di ascoltare.</p>
+      </section>
+
+      <section id="t-proprieta">
+        <h2>16. Proprietà intellettuale e marchi</h2>
+        <p>I Plugin, il codice, gli algoritmi, l'interfaccia, i suoni, i preset, i testi, le immagini e i video del sito, e i nomi e i loghi Vault Plugins, Zazzi, VTUNE e VSTREAM appartengono a Lorenzo Zazzera o a chi ce li ha concessi in licenza, e sono protetti dalle leggi sul diritto d'autore e sui marchi. Oltre alla Licenza della sezione 8 non ti è concesso alcun diritto.</p>
+        <p>VST è un marchio di Steinberg Media Technologies GmbH. Audio Units, Mac, macOS, Logic Pro, iPhone e Apple Silicon sono marchi di Apple Inc. Windows è un marchio di Microsoft Corporation. Pro Tools e AAX sono marchi di Avid Technology, Inc. Android è un marchio di Google LLC. Gli altri nomi di prodotti e aziende citati sul sito appartengono ai rispettivi titolari e sono usati solo per indicare la compatibilità o per confrontare le funzioni: Vault Plugins non è affiliato a loro né approvato da loro.</p>
+        <p>Se ci mandi idee o suggerimenti, possiamo usarli liberamente per migliorare i Plugin, senza obblighi verso di te.</p>
+      </section>
+
+      <section id="t-sospensione">
+        <h2>17. Sospensione e revoca della Licenza</h2>
+        <p>Possiamo sospendere o revocare una Licenza se il Codice viene condiviso o pubblicato, se qualcuno tenta di aggirare il sistema di licenza, se il pagamento viene annullato o risulta fraudolento, o in caso di altre violazioni gravi di questi termini.</p>
+        <p>Prima ti scriviamo spiegando il motivo e, quando la violazione si può rimediare, ti diamo 14 giorni per farlo. Se pensi che sia un errore rispondi a quell'email: se avevi ragione, riattiviamo subito la Licenza.</p>
+        <p>La revoca per violazione non dà diritto a rimborso, salvo i diritti che la legge ti riconosce comunque.</p>
+      </section>
+
+      <section id="t-modifiche">
+        <h2>18. Modifiche a questi termini</h2>
+        <p>Possiamo aggiornare questi termini per giustificati motivi, come nuovi Plugin o servizi, cambiamenti tecnici o nuove norme. In cima alla pagina trovi sempre la versione e la data.</p>
+        <p>A ogni acquisto si applica la versione dei termini che hai accettato in quel momento. Le modifiche successive non peggiorano i tuoi diritti sulle Licenze già comprate, salvo quanto imposto dalla legge.</p>
+        <p>Per gli abbonamenti, le modifiche rilevanti te le comunichiamo via email almeno 30 giorni prima che si applichino. Se non le accetti, puoi disdire prima senza costi.</p>
+        <p>Le versioni precedenti dei termini te le mandiamo su richiesta.</p>
+      </section>
+
+      <section id="t-legge">
+        <h2>19. Legge applicabile e controversie</h2>
+        <p>Questi termini sono regolati dalla legge italiana. Se sei un consumatore residente in un altro Paese dell'Unione europea, conservi la protezione delle norme inderogabili del Paese in cui vivi.</p>
+        <p>Se sei un consumatore, per le controversie è competente il giudice del luogo in cui risiedi o hai domicilio (art. 66-bis del Codice del Consumo). Per le controversie con chi non è consumatore è competente in via esclusiva il Foro di Napoli.</p>
+        <p>Prima di rivolgerti a un giudice scrivici: quasi tutti i problemi si risolvono via email. Puoi anche usare le procedure di risoluzione alternativa delle controversie previste dagli articoli 141 e seguenti del Codice del Consumo.</p>
+      </section>
+
+      <section id="t-generali">
+        <h2>20. Disposizioni generali</h2>
+        <ul>
+          <li>Se una clausola risulta nulla o inefficace, le altre restano valide.</li>
+          <li>Se non facciamo valere subito un diritto, non per questo vi rinunciamo.</li>
+          <li>Se hai meno di 18 anni puoi comprare solo con il consenso di un genitore o di chi ne fa le veci.</li>
+          <li>Possiamo trasferire questo contratto a una società che subentri nella gestione di Vault Plugins, purché le tue tutele non si riducano. Te lo comunichiamo prima e, se non sei d'accordo, puoi recedere senza costi.</li>
+          <li>Le comunicazioni sul contratto le ricevi all'indirizzo email usato per l'acquisto; le tue vanno a <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a>.</li>
+          <li>Questi termini esistono in italiano e in inglese. In caso di differenze prevale l'italiano, fatte salve le norme inderogabili a tutela dei consumatori.</li>
+          <li>Questi termini, insieme alla conferma dell'ordine, sono l'intero accordo tra te e noi sui Plugin.</li>
+        </ul>
+      </section>
+
+      <section id="t-contatti">
+        <h2>21. Contatti</h2>
+        <dl class="legal-card">
+          <dt>Titolare</dt><dd>Lorenzo Zazzera · Vault Plugins</dd>
+          <dt>Indirizzo</dt><dd>Via San Mandato 16, 80136 Napoli (NA), Italia</dd>
+          <dt>Codice fiscale</dt><dd>ZZZLNZ02P15F839N</dd>
+          <dt>Email</dt><dd><a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a></dd>
+        </dl>
+        <p>Per qualsiasi domanda su questi termini, sulla tua Licenza o sui tuoi dati, scrivici.</p>
+      </section>
+
+      <section id="t-modulo">
+        <h2>Modulo di recesso tipo</h2>
+        <p>Compila e invia questo modulo solo se vuoi recedere dal contratto.</p>
+        <div class="legal-form">
+          <p>Destinatario: Lorenzo Zazzera · Vault Plugins, Via San Mandato 16, 80136 Napoli (NA), Italia · zazziprod@gmail.com</p>
+          <p>Con la presente io/noi (*) notifico/notifichiamo (*) il recesso dal mio/nostro (*) contratto per la fornitura del seguente contenuto digitale: ______</p>
+          <p>Ordinato il: ______</p>
+          <p>Codice di licenza o numero d'ordine: ______</p>
+          <p>Nome del/dei consumatore/i: ______</p>
+          <p>Indirizzo del/dei consumatore/i: ______</p>
+          <p>Email usata per l'acquisto: ______</p>
+          <p>Firma del/dei consumatore/i (solo se il modulo è inviato su carta): ______</p>
+          <p>Data: ______</p>
+          <p class="legal-form-note">(*) Cancellare la dicitura inutile.</p>
+        </div>
+      </section>
+    </article>
+
+    <article class="legal-doc" lang="en">
+      <header class="legal-head">
+        <p class="kicker">Legal</p>
+        <h1 class="h2">Terms and conditions</h1>
+        <p class="legal-meta">Version 1.1 · effective 16 October 2026</p>
+        <p class="lead">The rules for downloading, trying, buying and using Vault Plugins. We wrote them to be read: plain sentences, no surprises.</p>
+        <button type="button" class="btn btn-ghost btn-sm legal-print" data-print>Print or save as PDF</button>
+      </header>
+
+      <aside class="legal-brief">
+        <h2>In short</h2>
+        <ul>
+          <li>You buy a licence to use the software, not the software itself. Each licence works on 3 computers, Mac and Windows together.</li>
+          <li>A single licence is yours with no end date, with free updates for the version you bought.</li>
+          <li>You have 14 days to change your mind, even after activating the licence: we refund you in full.</li>
+          <li>If a plugin doesn't work as promised, you have a 2-year legal guarantee: we fix it or refund you.</li>
+          <li>The audio you make with the plugins is yours, royalty-free.</li>
+        </ul>
+        <p>This summary helps you find your way, but the terms below are what count.</p>
+      </aside>
+
+      <nav class="legal-toc" aria-label="Contents">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#/terms/about">1. Who we are and what these terms cover</a></li>
+          <li><a href="#/terms/definitions">2. Words we use</a></li>
+          <li><a href="#/terms/products">3. The Plugins and what you need to use them</a></li>
+          <li><a href="#/terms/purchase">4. How a purchase is made</a></li>
+          <li><a href="#/terms/prices">5. Prices and payment</a></li>
+          <li><a href="#/terms/trial">6. Free trial</a></li>
+          <li><a href="#/terms/subscription">7. All Access subscription</a></li>
+          <li><a href="#/terms/licence">8. Licence to use</a></li>
+          <li><a href="#/terms/activation">9. Activation and internet connection</a></li>
+          <li><a href="#/terms/updates">10. Updates</a></li>
+          <li><a href="#/terms/local-network">11. VSTREAM and the local network</a></li>
+          <li><a href="#/terms/withdrawal">12. Right of withdrawal</a></li>
+          <li><a href="#/terms/refunds">13. Refunds beyond withdrawal</a></li>
+          <li><a href="#/terms/warranty">14. Legal guarantee of conformity</a></li>
+          <li><a href="#/terms/liability">15. Liability</a></li>
+          <li><a href="#/terms/property">16. Intellectual property and trademarks</a></li>
+          <li><a href="#/terms/suspension">17. Suspending and revoking a Licence</a></li>
+          <li><a href="#/terms/changes">18. Changes to these terms</a></li>
+          <li><a href="#/terms/law">19. Governing law and disputes</a></li>
+          <li><a href="#/terms/general">20. General provisions</a></li>
+          <li><a href="#/terms/contact">21. Contact</a></li>
+          <li><a href="#/terms/form">Model withdrawal form</a></li>
+        </ol>
+      </nav>
+
+      <section id="t-about">
+        <h2>1. Who we are and what these terms cover</h2>
+        <p>Vault Plugins is the website zazziplugins.com and the audio plugins you find there, such as VTUNE and VSTREAM (together, "the Plugins"). It is run by <strong>Lorenzo Zazzera</strong>, Via San Mandato 16, 80136 Napoli (NA), Italy, tax code ZZZLNZ02P15F839N, email <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a> ("we", "us").</p>
+        <p>These terms are the contract between you and us whenever you download, try, buy or use a Plugin, free or paid. They include the licence to use the Plugins (section 8).</p>
+        <p>You accept them at checkout, when you buy or start a Trial, or, for free Plugins, when you download or install them. If you don't accept them, don't download or use the Plugins.</p>
+        <p>If you buy for purposes outside your trade or profession, you are a <strong>consumer</strong>: nothing in these terms takes away or reduces the rights the law gives you that a contract cannot exclude. If a clause conflicts with those rules, the rules prevail. The parts written for consumers (withdrawal, the consumer legal guarantee, the consumer's court) do not apply to those who buy for their business or profession.</p>
+      </section>
+
+      <section id="t-definitions">
+        <h2>2. Words we use</h2>
+        <dl class="legal-defs">
+          <dt>Plugin</dt><dd>a Vault Plugins audio software in VST3 or AU format, with the presets, manuals and files that come with it.</dd>
+          <dt>Licence</dt><dd>the right to use a Plugin under section 8. It can be single (one-off payment), subscription, Trial or free.</dd>
+          <dt>Licence code</dt><dd>the code, or the .lic file, you receive by email that unlocks the Plugin.</dd>
+          <dt>Activation</dt><dd>linking a Licence code to one of your computers.</dd>
+          <dt>Version</dt><dd>a Plugin's main series, shown by its first number: for example, all 1.x releases are Version 1. The 0.x releases are part of Version 1.</dd>
+          <dt>Trial</dt><dd>the free, full-featured period some Plugins offer before purchase.</dd>
+        </dl>
+      </section>
+
+      <section id="t-products">
+        <h2>3. The Plugins and what you need to use them</h2>
+        <p>What each Plugin does is described on its page on the website, and that description is part of the contract. The images show the real interface, which may change slightly from one update to the next.</p>
+        <p>To use the Plugins you need:</p>
+        <ul>
+          <li>a Mac with macOS 11 (Big Sur) or later, Apple Silicon or Intel, or a PC with 64-bit Windows 10 or 11;</li>
+          <li>a 64-bit DAW that loads VST3 plugins (or AU on Mac);</li>
+          <li>an internet connection for Activation (section 9).</li>
+        </ul>
+        <p>The Plugins are not available in AAX format, so they don't work in Pro Tools. Any extra requirements are listed on each Plugin's page. We recommend trying a Plugin on your system before buying it, with the Trial or the free version where available.</p>
+        <p>Some Plugins are free to download. These terms apply to them too, except the parts on prices, payment and withdrawal.</p>
+      </section>
+
+      <section id="t-purchase">
+        <h2>4. How a purchase is made</h2>
+        <p>The contract is made online, in Italian or English, in four steps:</p>
+        <ol>
+          <li>you press Buy or Free trial on a Plugin: Stripe's payment page opens with the order summary, that is the Plugin, the type of Licence, the final price including taxes and, for a Trial, the date of the first charge;</li>
+          <li>before paying you can check and correct the details you entered, or go back with no commitment. At checkout we also ask you to accept these terms;</li>
+          <li>the contract is made when you confirm the payment or the start of the Trial;</li>
+          <li>you receive a confirmation email with the order summary, your Licence code, the link to download the Plugin and the link to these terms. Keep it: it is your copy of the contract. You can also print this page or save it as a PDF.</li>
+        </ol>
+        <p>We keep order data for accounting obligations and to support you. If you lose the confirmation email or your Licence code, write to us from the address you used to buy and we will send them again.</p>
+      </section>
+
+      <section id="t-prices">
+        <h2>5. Prices and payment</h2>
+        <p>Prices are in euros. The final price, taxes included, is the one shown at checkout before you confirm, with no extra costs. Your bank may charge its own fees, for example for currency conversion.</p>
+        <p>Payments go through Stripe, which acts as the reseller (merchant of record) for our purchases through its Managed Payments service: it collects the payment, calculates and pays the taxes, sends you the receipt and handles payment disputes. That is why the charge may show on your statement under the name of Stripe or Link. You pay by card or with the other methods shown at checkout; card details are handled by Stripe and we never see them. The Licence and the Plugin, on the other hand, are supplied by us under these terms.</p>
+        <p>We may change prices at any time, but a change never affects orders already made. If a price on the website is obviously wrong (for example €3.90 instead of €39), we tell you before delivering the Licence: you can confirm the order at the correct price or cancel it with a full refund.</p>
+        <p>Discounts and promo codes apply on the terms stated when we offer them and cannot be combined, unless stated otherwise.</p>
+        <p>If you dispute a payment with your bank (chargeback), the related Licence may stay suspended while the dispute is open. Write to us first: it is almost always sorted out quickly.</p>
+      </section>
+
+      <section id="t-trial">
+        <h2>6. Free trial</h2>
+        <p>Some Plugins may offer a free Trial of a few days with every feature: if so, you'll find it on the Plugin's page and in the checkout summary. VSTREAM has no free Trial: instead, you have the 14-day withdrawal in section 12.</p>
+        <p>To start a Trial you enter a payment method at checkout. You pay nothing during the Trial. At the end, unless you have cancelled, you are charged the Licence price shown at checkout and the Plugin keeps working without interruption.</p>
+        <p>You can cancel the Trial at any time before it ends, at no cost, with the tools given in the Trial confirmation email or by writing to <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a>: the time your email was sent is what counts. If you cancel, the Plugin stops working at the end of the Trial until you activate a Licence. Your projects stay intact.</p>
+        <p>There is one Trial per person per Plugin. We may refuse a new Trial to someone who has already had one, for example with a different email address.</p>
+      </section>
+
+      <section id="t-subscription">
+        <h2>7. All Access subscription</h2>
+        <p>When available, the All Access subscription gives access to every Plugin in the catalogue, including future ones, for as long as it stays active. It can be monthly or yearly.</p>
+        <p>The subscription renews automatically at the end of each period, at the current price, until you cancel it. You can cancel at any time, at no cost and without notice, with the tools given in the confirmation email or by writing to us. Cancelling stops renewals, and access stays active until the end of the period already paid, which is not refunded, except in the cases of sections 12 and 14.</p>
+        <p>If we raise the price, we email you at least 30 days before the renewal it applies to, so you can cancel first at no cost. A price rise never affects the current period.</p>
+        <p>If a renewal payment fails, Stripe retries for a few days. If payment doesn't come through, the subscription ends.</p>
+        <p>When the subscription ends, the included Plugins open in bypass, meaning they pass audio through without processing it. Your projects and saved settings stay, and come back to life if you subscribe again or buy the Plugin's single Licence.</p>
+        <p>The catalogue may change. If we remove a Plugin from the subscription and this makes what you paid for noticeably worse, you can withdraw within 30 days of being told and we refund the unused part of the period.</p>
+      </section>
+
+      <section id="t-licence">
+        <h2>8. Licence to use</h2>
+        <p>The software remains ours: with a Licence you buy the right to use it, not the software itself. We grant you a personal, non-exclusive licence to install and use the Plugin on the terms of this section.</p>
+        <h3>Duration</h3>
+        <p>A single Licence has no end date for the Version you bought. A subscription Licence lasts while the subscription is active, a Trial Licence for the length of the Trial. Free Plugins can be used with no end date.</p>
+        <h3>Computers</h3>
+        <p>Each Licence can be active on 3 computers at a time, Mac and Windows together. The computers must be yours or used by you. If the Licence is in the name of a studio or company, the people working for it may use it, still within the 3 computers.</p>
+        <p>To move to another computer, deactivate the Licence on one of the active ones with the button in the Plugin. Deactivations have a monthly limit, so that a Licence doesn't get passed around. If you reach it, or if a computer broke or was stolen, write to us and we will free it for you.</p>
+        <h3>What you can do</h3>
+        <p>You can use the Plugins for personal and commercial work: productions, mixes, masters, gigs, live streams, client work. The audio you make is yours, with no royalties or credit owed to us. You can use and modify the included presets in your productions.</p>
+        <h3>What you can't do</h3>
+        <ul>
+          <li>share or publish your Licence code or .lic file, or use them on more than 3 computers;</li>
+          <li>bypass, disable or tamper with the licensing system, or use modified copies of the Plugin;</li>
+          <li>copy, distribute, sell, rent, lend or sublicense the Plugin, or make it available to others, for example on a server or inside a software bundle;</li>
+          <li>sell or distribute the included presets as presets;</li>
+          <li>decompile, disassemble or reverse engineer the Plugin, except to the extent the law allows it and it cannot be excluded (art. 64-quater of Italian law 633/1941);</li>
+          <li>use the Plugin, its interface or its sounds to create a competing product;</li>
+          <li>remove or alter copyright notices and trademarks.</li>
+        </ul>
+        <h3>Transferring the Licence</h3>
+        <p>You can transfer a single Licence to another person, in full. Write to us: we put it in the new owner's name and deactivate it on your computers, and from then on you can no longer use it. Trial Licences, subscription Licences and review copies cannot be transferred.</p>
+        <h3>Third-party components</h3>
+        <p>The Plugins may contain third-party components under their own licences, which remain valid for those components. The related notices are in the installer package, or we send them on request.</p>
+      </section>
+
+      <section id="t-activation">
+        <h2>9. Activation and internet connection</h2>
+        <p>Paid Plugins are activated by entering the Licence code or dropping the .lic file onto the Plugin, and this needs internet. After Activation they also work offline, and every so often they reconnect on their own to renew it. If a computer stays offline for a long time, at some point the Plugin asks you to connect to keep going.</p>
+        <p>To activate and renew the Licence, the Plugin sends our servers the Licence code, a computer identifier worked out by the Plugin, the computer's name (to show you which computers use the Licence), and the Plugin's name and version. As with any connection, the server also receives the IP address. We use this data only to manage Licences, prevent abuse and support you: we don't sell it and don't use it for advertising. For any request about your data, write to <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a>.</p>
+        <p>Keep your computer's date and time correct: a wrong date can stop the Licence from being verified.</p>
+        <p>If our servers are temporarily unreachable, Plugins already activated keep working and we restore the service as soon as possible. If one day we had to shut down the activation service, we would tell you at least 90 days in advance and release a free update that lets single Licences work without online checks.</p>
+      </section>
+
+      <section id="t-updates">
+        <h2>10. Updates</h2>
+        <p>With a single Licence you get every update of the Version you bought for free: fixes, compatibility with new systems and improvements. A new Version (for example 2.0) may be paid, and you keep using the one you already have with no limits. With the subscription you always have the latest Version.</p>
+        <p>We provide, and tell you about, the updates needed to keep the Plugin in conformity, including security updates, for as long as the law requires (art. 135-decies of the Italian Consumer Code). Installing them is your choice, but if you don't install an update we told you about, we are not liable for the defects that update would have fixed.</p>
+        <p>We work to keep the Plugins compatible with new versions of operating systems and DAWs, but we can't guarantee it for versions released after your purchase, except as provided by the legal guarantee.</p>
+        <p>We may change the Plugins to improve them or for technical and legal reasons. If a change makes your use of the Plugin noticeably worse, we tell you and, if you are a consumer, you can withdraw free of charge within 30 days of being told (art. 135-undecies of the Italian Consumer Code), unless we let you keep using the previous version.</p>
+      </section>
+
+      <section id="t-local-network">
+        <h2>11. VSTREAM and the local network</h2>
+        <p>VSTREAM sends your DAW's audio to phones on the same local network, through a small server it opens on your computer (ports 7171 to 7180). The audio never goes over the internet or through our servers: we don't receive it, listen to it or record it.</p>
+        <p>While VSTREAM is on, anyone on the same network with the address or the QR code can listen, and the plugin shows which phones are connected. Use it on networks you trust, such as your home or studio network: on public or shared networks (hotels, coworking spaces, events) other people could listen. To stop streaming, turn the plugin off or remove it from the track.</p>
+        <p>You are responsible for having the rights to the audio you stream and for keeping it confidential, for example when working on a client's unreleased tracks.</p>
+        <p>Your operating system or firewall may ask permission to accept incoming connections: this is what lets the phones connect. Listening quality depends on the Wi-Fi network, and dropouts caused by a slow or congested network, or one that isolates devices from each other, are not a defect of the plugin.</p>
+      </section>
+
+      <section id="t-withdrawal">
+        <h2>12. Right of withdrawal</h2>
+        <p>If you are a consumer you can withdraw from the contract within 14 days of making it, without giving any reason. This applies even if you have already downloaded the Plugin and activated the Licence: we don't ask you to give it up at checkout.</p>
+        <p>To withdraw, send us a clear statement within the 14 days by writing to <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a> from the address you used to buy (replying to the Licence email is fine), with the order date and the Plugin. You can use the <a href="#/terms/form">form at the bottom of this page</a>, but you don't have to. It's enough to send it before the 14 days are up.</p>
+        <p>If the withdrawal is valid, we refund you within 14 days of receiving it, using the same payment method you used to buy and at no cost to you. With the refund the Licence is deactivated on every computer: uninstall the Plugin and stop using it.</p>
+        <p>For a Trial, section 6 applies: you can cancel at no cost during the Trial. For a subscription, the 14 days apply to the first period; after that you can cancel whenever you like (section 7).</p>
+      </section>
+
+      <section id="t-refunds">
+        <h2>13. Refunds beyond withdrawal</h2>
+        <p>Beyond what the law provides, we may grant a refund case by case. If you bought the same Plugin twice by mistake, we always refund the second purchase: write to us within 30 days.</p>
+        <p>Every refund goes back to the same payment method and deactivates the refunded Licence.</p>
+      </section>
+
+      <section id="t-warranty">
+        <h2>14. Legal guarantee of conformity</h2>
+        <p>If you are a consumer you have the legal guarantee of conformity for digital content under articles 135-octies and following of the Italian Consumer Code (Legislative Decree 206/2005). The Plugin must match its description, work on the systems listed in the requirements and have the qualities you can reasonably expect, including the updates in section 10.</p>
+        <p>For a single Licence we are liable for defects that appear within 2 years of delivery; for the subscription, for defects that appear while it is active.</p>
+        <p>If the Plugin is not in conformity you can ask us to bring it into conformity, free of charge and within a reasonable time. If that is impossible, if we don't do it or if the defect is serious, you can ask for a proportionate price reduction or, if the defect is not minor, to end the contract with a refund.</p>
+        <p>To report a defect, write to us describing the problem, your operating system, your DAW and the Plugin version. We may ask for a little more information about your system, to understand whether the problem comes from there: by law you are required to cooperate within reason, and we use the least intrusive means available.</p>
+        <p>Problems caused by systems or DAWs outside the requirements, by modified copies, by use contrary to these terms, by malware or by faults in your hardware are not defects of the Plugin.</p>
+        <p>If you are not a consumer, the guarantee under the Italian Civil Code applies, within the limits of section 15.</p>
+      </section>
+
+      <section id="t-liability">
+        <h2>15. Liability</h2>
+        <p>We build and test the Plugins with care, but no software is free of errors. Save your projects often and keep a backup.</p>
+        <p>To the extent the law allows, we are not liable for:</p>
+        <ul>
+          <li>indirect damage, or damage that could not be foreseen when you made the contract;</li>
+          <li>lost earnings or missed opportunities;</li>
+          <li>loss of projects or files that a normal backup would have prevented;</li>
+          <li>damage caused by use contrary to these terms or outside the requirements;</li>
+          <li>outages of networks or third-party services beyond our reasonable control.</li>
+        </ul>
+        <p>If you are not a consumer, our total liability to you is limited to what you paid for the Licence concerned in the 12 months before the event.</p>
+        <p>These limits don't apply in cases of wilful misconduct or gross negligence, to personal injury, or in any other case where the law doesn't allow liability to be limited, and they don't affect the legal guarantee.</p>
+        <h3>Volume and hearing</h3>
+        <p>The Plugins can produce loud sounds, for example with extreme correction or when listening on headphones with VSTREAM. Keep the volume moderate and raise it gradually. If you feel discomfort or hear ringing or buzzing, stop listening.</p>
+      </section>
+
+      <section id="t-property">
+        <h2>16. Intellectual property and trademarks</h2>
+        <p>The Plugins, their code, algorithms, interface, sounds and presets, the website's text, images and videos, and the names and logos Vault Plugins, Zazzi, VTUNE and VSTREAM belong to Lorenzo Zazzera or to those who licensed them to us, and are protected by copyright and trademark law. Beyond the Licence in section 8, no rights are granted to you.</p>
+        <p>VST is a trademark of Steinberg Media Technologies GmbH. Audio Units, Mac, macOS, Logic Pro, iPhone and Apple Silicon are trademarks of Apple Inc. Windows is a trademark of Microsoft Corporation. Pro Tools and AAX are trademarks of Avid Technology, Inc. Android is a trademark of Google LLC. Other product and company names mentioned on the website belong to their owners and are used only to state compatibility or compare features: Vault Plugins is not affiliated with or endorsed by them.</p>
+        <p>If you send us ideas or suggestions, we may use them freely to improve the Plugins, with no obligation to you.</p>
+      </section>
+
+      <section id="t-suspension">
+        <h2>17. Suspending and revoking a Licence</h2>
+        <p>We may suspend or revoke a Licence if its code is shared or published, if someone tries to bypass the licensing system, if the payment is reversed or turns out to be fraudulent, or for other serious breaches of these terms.</p>
+        <p>We write to you first explaining why and, when the breach can be remedied, give you 14 days to do so. If you think it's a mistake, reply to that email: if you were right, we reactivate the Licence straight away.</p>
+        <p>Revocation for a breach gives no right to a refund, without prejudice to the rights the law gives you in any case.</p>
+      </section>
+
+      <section id="t-changes">
+        <h2>18. Changes to these terms</h2>
+        <p>We may update these terms for good reasons, such as new Plugins or services, technical changes or new laws. The version and date are always at the top of the page.</p>
+        <p>Each purchase is governed by the version of the terms you accepted at that time. Later changes don't reduce your rights on Licences you already bought, except where the law requires.</p>
+        <p>For subscriptions, we email you about significant changes at least 30 days before they apply. If you don't accept them, you can cancel beforehand at no cost.</p>
+        <p>We send previous versions of the terms on request.</p>
+      </section>
+
+      <section id="t-law">
+        <h2>19. Governing law and disputes</h2>
+        <p>These terms are governed by Italian law. If you are a consumer living in another country of the European Union, you keep the protection of the mandatory rules of the country where you live.</p>
+        <p>If you are a consumer, disputes go to the court of the place where you live or are domiciled (art. 66-bis of the Italian Consumer Code). For disputes with those who are not consumers, the Court of Naples has exclusive jurisdiction.</p>
+        <p>Before going to court, write to us: almost every problem is solved by email. You can also use the alternative dispute resolution procedures under articles 141 and following of the Italian Consumer Code.</p>
+      </section>
+
+      <section id="t-general">
+        <h2>20. General provisions</h2>
+        <ul>
+          <li>If a clause turns out to be void or unenforceable, the others remain valid.</li>
+          <li>If we don't enforce a right straight away, we don't waive it.</li>
+          <li>If you are under 18, you may only buy with the consent of a parent or guardian.</li>
+          <li>We may transfer this contract to a company that takes over running Vault Plugins, as long as your protections are not reduced. We tell you beforehand and, if you don't agree, you can withdraw at no cost.</li>
+          <li>Communications about the contract reach you at the email address used for the purchase; yours go to <a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a>.</li>
+          <li>These terms exist in Italian and English. If they differ, the Italian version prevails, without prejudice to mandatory consumer protection rules.</li>
+          <li>These terms, together with the order confirmation, are the entire agreement between you and us about the Plugins.</li>
+        </ul>
+      </section>
+
+      <section id="t-contact">
+        <h2>21. Contact</h2>
+        <dl class="legal-card">
+          <dt>Owner</dt><dd>Lorenzo Zazzera · Vault Plugins</dd>
+          <dt>Address</dt><dd>Via San Mandato 16, 80136 Napoli (NA), Italy</dd>
+          <dt>Tax code</dt><dd>ZZZLNZ02P15F839N</dd>
+          <dt>Email</dt><dd><a href="mailto:zazziprod@gmail.com">zazziprod@gmail.com</a></dd>
+        </dl>
+        <p>For any question about these terms, your Licence or your data, write to us.</p>
+      </section>
+
+      <section id="t-form">
+        <h2>Model withdrawal form</h2>
+        <p>Complete and send this form only if you wish to withdraw from the contract.</p>
+        <div class="legal-form">
+          <p>To: Lorenzo Zazzera · Vault Plugins, Via San Mandato 16, 80136 Napoli (NA), Italy · zazziprod@gmail.com</p>
+          <p>I/We (*) hereby give notice that I/We (*) withdraw from my/our (*) contract for the supply of the following digital content: ______</p>
+          <p>Ordered on: ______</p>
+          <p>Licence code or order number: ______</p>
+          <p>Name of consumer(s): ______</p>
+          <p>Address of consumer(s): ______</p>
+          <p>Email used for the purchase: ______</p>
+          <p>Signature of consumer(s) (only if this form is sent on paper): ______</p>
+          <p>Date: ______</p>
+          <p class="legal-form-note">(*) Delete as appropriate.</p>
+        </div>
+      </section>
+    </article>
+    </div>
+  </main>
+
+  <section class="cta" aria-labelledby="ctaTitle" hidden>
     <div class="cta-box" data-reveal>
       <div class="eq" id="eq" aria-hidden="true"></div>
       <p class="kicker">All Access</p>
@@ -160,20 +1209,20 @@
 
   <footer class="footer">
     <div class="footer-top">
-      <a href="#/" class="brand" aria-label="Zazzi Plugins, home">
-        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        <span class="brand-name">zazzi<span>plugins</span></span>
+      <a href="#/" class="brand" aria-label="Vault Plugins, home">
+        <span class="brand-name">vault<span>plugins</span></span>
       </a>
       <nav class="footer-links" aria-label="Footer">
-        <a href="#/plugins">Plugin</a>
-        <a href="#/all-access">All Access</a>
-        <a href="#/faq">FAQ</a>
-        <a href="#" data-buy data-label="Contatto supporto">Supporto</a>
+        <a data-tune-only href="#/tune">VTUNE</a>
+        <a href="#/vstream">VSTREAM</a>
+          <a href="#/faq">FAQ</a>
+        <a href="mailto:zazziprod@gmail.com">Supporto</a>
+        <a href="#/termini">Termini e condizioni</a>
       </nav>
     </div>
     <p class="wordmark" aria-hidden="true">zazzi</p>
     <div class="footer-bottom">
-      <span>© <span id="year"></span> Zazzi Plugins</span>
+      <span>© <span id="year"></span> Vault Plugins</span>
       <span>Fatto in Italia, per le cuffie di tutti.</span>
     </div>
   </footer>
@@ -183,5 +1232,7 @@
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
   <script src="js/data.js" defer></script>
   <script src="js/app.js" defer></script>
+  <script src="js/hotspots.js" defer></script>
+  <script src="js/i18n.js" defer></script>
 </body>
 </html>
